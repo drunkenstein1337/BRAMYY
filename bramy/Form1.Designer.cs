@@ -115,14 +115,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.kc = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panelfurtki = new System.Windows.Forms.Panel();
-            this.panelzz = new System.Windows.Forms.Panel();
-            this.label78 = new System.Windows.Forms.Label();
-            this.zawias1 = new System.Windows.Forms.TextBox();
-            this.zawias2 = new System.Windows.Forms.TextBox();
-            this.label56 = new System.Windows.Forms.Label();
-            this.panelprzemek = new System.Windows.Forms.Panel();
-            this.label57 = new System.Windows.Forms.Label();
             this.panelbramy = new System.Windows.Forms.Panel();
             this.label35 = new System.Windows.Forms.Label();
             this.cpr88 = new System.Windows.Forms.TextBox();
@@ -142,11 +134,20 @@
             this.label74 = new System.Windows.Forms.Label();
             this.lp44 = new System.Windows.Forms.TextBox();
             this.label73 = new System.Windows.Forms.Label();
+            this.panelfurtki = new System.Windows.Forms.Panel();
+            this.panelzz = new System.Windows.Forms.Panel();
+            this.label78 = new System.Windows.Forms.Label();
+            this.zawias1 = new System.Windows.Forms.TextBox();
+            this.zawias2 = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.panelprzemek = new System.Windows.Forms.Panel();
+            this.label57 = new System.Windows.Forms.Label();
             this.label77 = new System.Windows.Forms.Label();
             this.wozki = new System.Windows.Forms.TextBox();
             this.label76 = new System.Windows.Forms.Label();
             this.kieszen = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.btnsave = new System.Windows.Forms.Button();
             this.panelwozki = new System.Windows.Forms.Panel();
             this.label55 = new System.Windows.Forms.Label();
             this.ciecie = new System.Windows.Forms.TextBox();
@@ -215,10 +216,10 @@
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panelbramy.SuspendLayout();
             this.panelfurtki.SuspendLayout();
             this.panelzz.SuspendLayout();
             this.panelprzemek.SuspendLayout();
-            this.panelbramy.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panelwozki.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -1402,88 +1403,14 @@
             this.panel2.Controls.Add(this.panel6);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel7);
-            this.panel2.Controls.Add(this.panelfurtki);
             this.panel2.Controls.Add(this.panelbramy);
+            this.panel2.Controls.Add(this.panelfurtki);
             this.panel2.Location = new System.Drawing.Point(0, 413);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.MaximumSize = new System.Drawing.Size(900, 400);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(725, 341);
             this.panel2.TabIndex = 83;
-            // 
-            // panelfurtki
-            // 
-            this.panelfurtki.Controls.Add(this.panelzz);
-            this.panelfurtki.Controls.Add(this.zawias1);
-            this.panelfurtki.Controls.Add(this.zawias2);
-            this.panelfurtki.Controls.Add(this.label56);
-            this.panelfurtki.Controls.Add(this.panelprzemek);
-            this.panelfurtki.Location = new System.Drawing.Point(0, 175);
-            this.panelfurtki.Name = "panelfurtki";
-            this.panelfurtki.Size = new System.Drawing.Size(725, 157);
-            this.panelfurtki.TabIndex = 65;
-            // 
-            // panelzz
-            // 
-            this.panelzz.Controls.Add(this.label78);
-            this.panelzz.Location = new System.Drawing.Point(21, 72);
-            this.panelzz.Name = "panelzz";
-            this.panelzz.Size = new System.Drawing.Size(181, 74);
-            this.panelzz.TabIndex = 88;
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(2, 48);
-            this.label78.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(133, 18);
-            this.label78.TabIndex = 90;
-            this.label78.Text = "Zamknięcia + żaba";
-            // 
-            // zawias1
-            // 
-            this.zawias1.Location = new System.Drawing.Point(212, 41);
-            this.zawias1.Margin = new System.Windows.Forms.Padding(4);
-            this.zawias1.Name = "zawias1";
-            this.zawias1.Size = new System.Drawing.Size(126, 24);
-            this.zawias1.TabIndex = 83;
-            // 
-            // zawias2
-            // 
-            this.zawias2.Location = new System.Drawing.Point(211, 115);
-            this.zawias2.Margin = new System.Windows.Forms.Padding(4);
-            this.zawias2.Name = "zawias2";
-            this.zawias2.Size = new System.Drawing.Size(126, 24);
-            this.zawias2.TabIndex = 85;
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(22, 44);
-            this.label56.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(142, 18);
-            this.label56.TabIndex = 84;
-            this.label56.Text = "Zawiasy regulowane";
-            // 
-            // panelprzemek
-            // 
-            this.panelprzemek.Controls.Add(this.label57);
-            this.panelprzemek.Location = new System.Drawing.Point(21, 72);
-            this.panelprzemek.Name = "panelprzemek";
-            this.panelprzemek.Size = new System.Drawing.Size(326, 74);
-            this.panelprzemek.TabIndex = 87;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(1, 48);
-            this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(173, 18);
-            this.label57.TabIndex = 86;
-            this.label57.Text = "Przymyk + elektrozamek";
             // 
             // panelbramy
             // 
@@ -1679,6 +1606,80 @@
             this.label73.TabIndex = 61;
             this.label73.Text = "Długość całkowita";
             // 
+            // panelfurtki
+            // 
+            this.panelfurtki.Controls.Add(this.panelzz);
+            this.panelfurtki.Controls.Add(this.zawias1);
+            this.panelfurtki.Controls.Add(this.zawias2);
+            this.panelfurtki.Controls.Add(this.label56);
+            this.panelfurtki.Controls.Add(this.panelprzemek);
+            this.panelfurtki.Location = new System.Drawing.Point(0, 175);
+            this.panelfurtki.Name = "panelfurtki";
+            this.panelfurtki.Size = new System.Drawing.Size(725, 157);
+            this.panelfurtki.TabIndex = 65;
+            // 
+            // panelzz
+            // 
+            this.panelzz.Controls.Add(this.label78);
+            this.panelzz.Location = new System.Drawing.Point(21, 72);
+            this.panelzz.Name = "panelzz";
+            this.panelzz.Size = new System.Drawing.Size(181, 74);
+            this.panelzz.TabIndex = 88;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(2, 48);
+            this.label78.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(133, 18);
+            this.label78.TabIndex = 90;
+            this.label78.Text = "Zamknięcia + żaba";
+            // 
+            // zawias1
+            // 
+            this.zawias1.Location = new System.Drawing.Point(212, 41);
+            this.zawias1.Margin = new System.Windows.Forms.Padding(4);
+            this.zawias1.Name = "zawias1";
+            this.zawias1.Size = new System.Drawing.Size(126, 24);
+            this.zawias1.TabIndex = 83;
+            // 
+            // zawias2
+            // 
+            this.zawias2.Location = new System.Drawing.Point(211, 115);
+            this.zawias2.Margin = new System.Windows.Forms.Padding(4);
+            this.zawias2.Name = "zawias2";
+            this.zawias2.Size = new System.Drawing.Size(126, 24);
+            this.zawias2.TabIndex = 85;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(22, 44);
+            this.label56.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(142, 18);
+            this.label56.TabIndex = 84;
+            this.label56.Text = "Zawiasy regulowane";
+            // 
+            // panelprzemek
+            // 
+            this.panelprzemek.Controls.Add(this.label57);
+            this.panelprzemek.Location = new System.Drawing.Point(21, 72);
+            this.panelprzemek.Name = "panelprzemek";
+            this.panelprzemek.Size = new System.Drawing.Size(326, 74);
+            this.panelprzemek.TabIndex = 87;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(1, 48);
+            this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(173, 18);
+            this.label57.TabIndex = 86;
+            this.label57.Text = "Przymyk + elektrozamek";
+            // 
             // label77
             // 
             this.label77.Location = new System.Drawing.Point(27, 64);
@@ -1716,6 +1717,7 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.btnsave);
             this.panel8.Controls.Add(this.panelwozki);
             this.panel8.Controls.Add(this.label55);
             this.panel8.Controls.Add(this.ciecie);
@@ -1730,6 +1732,16 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(725, 266);
             this.panel8.TabIndex = 102;
+            // 
+            // btnsave
+            // 
+            this.btnsave.Location = new System.Drawing.Point(574, 206);
+            this.btnsave.Name = "btnsave";
+            this.btnsave.Size = new System.Drawing.Size(123, 40);
+            this.btnsave.TabIndex = 92;
+            this.btnsave.Text = "Zapisz";
+            this.btnsave.UseVisualStyleBackColor = true;
+            this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
             // 
             // panelwozki
             // 
@@ -2345,8 +2357,8 @@
             // panel9
             // 
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel9.Controls.Add(this.label42);
             this.panel9.Controls.Add(this.label33);
+            this.panel9.Controls.Add(this.label42);
             this.panel9.Controls.Add(this.label43);
             this.panel9.Controls.Add(this.kosztpl);
             this.panel9.Controls.Add(this.textBoxp9);
@@ -2362,7 +2374,7 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(255, 10);
+            this.label42.Location = new System.Drawing.Point(253, 10);
             this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(82, 18);
@@ -2382,12 +2394,12 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(378, 10);
+            this.label43.Location = new System.Drawing.Point(348, 10);
             this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(86, 18);
+            this.label43.Size = new System.Drawing.Size(145, 18);
             this.label43.TabIndex = 65;
-            this.label43.Text = "Koszt profili";
+            this.label43.Text = "Koszt płaskowników";
             // 
             // kosztpl
             // 
@@ -2527,7 +2539,10 @@
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1466, 794);
+            this.MinimumSize = new System.Drawing.Size(1466, 794);
             this.Name = "Form1";
             this.Text = "0";
             this.panel1.ResumeLayout(false);
@@ -2540,14 +2555,14 @@
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panelbramy.ResumeLayout(false);
+            this.panelbramy.PerformLayout();
             this.panelfurtki.ResumeLayout(false);
             this.panelfurtki.PerformLayout();
             this.panelzz.ResumeLayout(false);
             this.panelzz.PerformLayout();
             this.panelprzemek.ResumeLayout(false);
             this.panelprzemek.PerformLayout();
-            this.panelbramy.ResumeLayout(false);
-            this.panelbramy.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panelwozki.ResumeLayout(false);
@@ -2747,6 +2762,7 @@
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.TextBox cpr88;
+        private System.Windows.Forms.Button btnsave;
     }
 }
 

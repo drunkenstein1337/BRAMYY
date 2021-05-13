@@ -38,3 +38,13 @@ C:\Users\pawel\source\repos\SudokoSolver\bramy_kopia\bramy\obj\Debug\bramy.cspro
 C:\Users\pawel\source\repos\SudokoSolver\bramy_kopia\bramy\obj\Debug\bramy.csproj.CoreCompileInputs.cache
 C:\Users\pawel\source\repos\SudokoSolver\bramy_kopia\bramy\obj\Debug\bramy.exe
 C:\Users\pawel\source\repos\SudokoSolver\bramy_kopia\bramy\obj\Debug\bramy.pdb
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\bin\Debug\bramy.exe.config
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\bin\Debug\bramy.exe
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\bin\Debug\bramy.pdb
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.csprojAssemblyReference.cache
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.Form1.resources
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.Properties.Resources.resources
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.csproj.GenerateResource.cache
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.csproj.CoreCompileInputs.cache
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.exe
+C:\Users\pawel\source\repos\SudokoSolver\BRAMYY\bramy\obj\Debug\bramy.pdb

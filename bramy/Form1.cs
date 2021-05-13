@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Globalization;
 
 namespace bramy
 {
     public partial class Form1 : Form
     {
+
         string[] lines = System.IO.File.ReadAllLines(@"C:\profile.txt");
         string[] lines1 = System.IO.File.ReadAllLines(@"C:\plaskowniki.txt");
 
@@ -27,15 +30,24 @@ namespace bramy
         double pp1 = 0, pp2 = 0, pp3 = 0;
         double total, rob, dod, cie;
         double woz, kie;
+        double k44, k88;
 
         double masap44 = 1.82;
         double masap88 = 10.04;
-   
+        bool left = false;
+
         public Form1()
         {
 
             InitializeComponent();
 
+            textBox9.Text = "7,10 zł";
+            textBoxp9.Text = "7,10 zł";
+
+            cm.Text = "50,00 zł";
+            cc.Text = "2,70 zł";
+
+        
             textBox1.TextChanged += removenans;
             textBox2.TextChanged += removenans;
             textBox3.TextChanged += removenans;
@@ -44,8 +56,6 @@ namespace bramy
             textBox6.TextChanged += removenans;
             textBox7.TextChanged += removenans;
             textBox8.TextChanged += removenans;
-            textBox9.TextChanged += removenans;
-            robocizna.TextChanged += removenans;
 
             textBoxp1.TextChanged += removenans;
             textBoxp2.TextChanged += removenans;
@@ -53,8 +63,9 @@ namespace bramy
             textBoxp4.TextChanged += removenans;
             textBoxp5.TextChanged += removenans;
             textBoxp6.TextChanged += removenans;
-            textBoxp9.TextChanged += removenans;
 
+            textBoxp9.TextChanged += removenans;
+            textBox9.TextChanged += removenans;
 
             cm.TextChanged += removenans;
             cc.TextChanged += removenans;
@@ -73,12 +84,26 @@ namespace bramy
             wozki.TextChanged += removenans;
             kieszen.TextChanged += removenans;
 
+            //walutowe
+            textBoxp9.Leave += currency;
+            textBox9.Leave += currency;
 
-            textBox9.Text = "7,10";
-            textBoxp9.Text = "7,10";
+            robocizna.Leave += currency;
+            dodatki.Leave += currency;
+            ciecie.Leave += currency;
 
-            cm.Text = "50";
-            cc.Text = "2,70";
+            cm.Leave += currency;
+            cc.Leave += currency;
+
+            zawias1.Leave += currency;
+            zawias2.Leave += currency;
+
+            cp44.Leave += currency;
+            cpr88.Leave += currency;
+            wozki.Leave += currency;
+            kieszen.Leave += currency;
+
+
             
 
             cm.Enabled = false;
@@ -133,53 +158,70 @@ namespace bramy
 
         private void removenans(object sender, EventArgs e)
         {
-            bool ok = true;
-
-            if ((sender as TextBox).Text.Length > 0)
+            //MessageBox.Show(Convert.ToString(left));
+            if (!left)
             {
-                for (int i = 0; i < (sender as TextBox).Text.Length; i++)
+                bool ok = true;
+               // MessageBox.Show((sender as TextBox).Text);
+
+                if ((sender as TextBox).Text.Length > 0)
                 {
-                    char c = (sender as TextBox).Text[i];
-                    int n = c;
-
-                    if (n == 44) //sprawdzenie czy w tekście jest przecinek
+                    for (int i = 0; i < (sender as TextBox).Text.Length; i++)
                     {
-                        for (int j = i + 1; j < (sender as TextBox).Text.Length; j++)
-                        {
-                            char c1 = (sender as TextBox).Text[j];
-                            int n1 = c1;
-                            if (n1 == 44)
-                            {
-                                ok = false;
-                                if ((sender as TextBox).Text.Length - 1 == i) // jeśli ostatni znak nie jest cyfrą tekst zostaje przycięty o jeden znak
-                                    (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i);
-                                else // jeśli znak w środku nie jest cyfrą zostaje zsumowany tekst przed i za znakiem
-                                    (sender as TextBox).Text = (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i) + (sender as TextBox).Text.Substring(i + 1, (sender as TextBox).Text.Length - i - 1);
+                        char c = (sender as TextBox).Text[i];
+                        int n = c;
 
-                                (sender as TextBox).SelectionStart = i; // ustawienie kursora na ostatniej pozycji
+                        if (n == 44) //sprawdzenie czy w tekście jest przecinek
+                        {
+                            for (int j = i + 1; j < (sender as TextBox).Text.Length; j++)
+                            {
+                                char c1 = (sender as TextBox).Text[j];
+                                int n1 = c1;
+                                if (n1 == 44)
+                                {
+                                    ok = false;
+                                    if ((sender as TextBox).Text.Length - 1 == i) // jeśli ostatni znak nie jest cyfrą tekst zostaje przycięty o jeden znak
+                                        (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i);
+                                    else // jeśli znak w środku nie jest cyfrą zostaje zsumowany tekst przed i za znakiem
+                                        (sender as TextBox).Text = (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i) + (sender as TextBox).Text.Substring(i + 1, (sender as TextBox).Text.Length - i - 1);
+
+                                    (sender as TextBox).SelectionStart = i; // ustawienie kursora na ostatniej pozycji
+                                }
                             }
                         }
-                    }
 
-                    if (n > 57 || n < 48 && n != 44) //sprawdzenie czy w tekście jest inny znak niż cyfra lub przecinek
-                    {
-                        ok = false;
-                        if ((sender as TextBox).Text.Length - 1 == i) // jeśli ostatni znak nie jest cyfrą tekst zostaje przycięty o jeden znak
-                            (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i);
-                        else // jeśli znak w środku nie jest cyfrą zostaje zsumowany tekst przed i za znakiem
-                            (sender as TextBox).Text = (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i) + (sender as TextBox).Text.Substring(i + 1, (sender as TextBox).Text.Length - i - 1);
+                        if (n > 57 || n < 48 && n != 44) //sprawdzenie czy w tekście jest inny znak niż cyfra lub przecinek
+                        {
+                            ok = false;
+                            if ((sender as TextBox).Text.Length - 1 == i) // jeśli ostatni znak nie jest cyfrą tekst zostaje przycięty o jeden znak
+                                (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i);
+                            else // jeśli znak w środku nie jest cyfrą zostaje zsumowany tekst przed i za znakiem
+                                (sender as TextBox).Text = (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, i) + (sender as TextBox).Text.Substring(i + 1, (sender as TextBox).Text.Length - i - 1);
 
-                        (sender as TextBox).SelectionStart = i; // ustawienie kursora na ostatniej pozycji
+                            (sender as TextBox).SelectionStart = i; // ustawienie kursora na ostatniej pozycji
+                        }
                     }
                 }
+                if (ok)
+                {
+                    update();
+                }
             }
-
-            if (ok)
-            {
-                update();
-            }
+            left = false;
         }
+        private void currency(object sender, EventArgs e)
+        {
+            //removenans(sender as TextBox, e);
+            left = true;
 
+            if ((sender as TextBox).Text != "")
+            {
+                double val = Double.Parse((sender as TextBox).Text, NumberStyles.Currency);
+                (sender as TextBox).Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", val);
+            }
+
+            update();
+        }
         private void clear()
         {
             comboBox1.SelectedItem = null;
@@ -233,6 +275,11 @@ namespace bramy
             cpr88.Text = "";
             lp44.Text = "";
             lp88.Text = "";
+            mp44.Text = "";
+            kp44.Text = "";
+            mp88.Text = "";
+            kp88.Text = "";
+
             wozki.Text = "";
             kieszen.Text = "";
 
@@ -509,7 +556,7 @@ namespace bramy
             if (checkBox2.Checked)
             {
                 if (cm.Text != "")
-                    cenam = Convert.ToDouble(cm.Text);
+                    cenam = Double.Parse(cm.Text, NumberStyles.Currency);
 
                 kosztm = cenam * (pow + powp) / 1000;
                 lm.Text = Convert.ToString((pow + powp) / 1000);
@@ -520,7 +567,7 @@ namespace bramy
             if (checkBox1.Checked)
             {
                 if (cc.Text != "")
-                    cenac = Convert.ToDouble(cc.Text);
+                    cenac = Double.Parse(cc.Text, NumberStyles.Currency);
 
                 kosztc = cenac * (mn + mnp);
                 lc.Text = Convert.ToString(mn + mnp);
@@ -529,7 +576,7 @@ namespace bramy
 
 
             if (textBox9.Text != "")
-                kpr = Convert.ToDouble(textBox9.Text) * mb;
+                kpr = Double.Parse(textBox9.Text, NumberStyles.Currency) * mb;
             else
                 kpr = 0;
 
@@ -537,7 +584,7 @@ namespace bramy
 
 
             if (textBoxp9.Text != "")
-                kpl = Convert.ToDouble(textBoxp9.Text) * mbp;
+                kpl = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mbp;
             else
                 kpl = 0;
 
@@ -545,19 +592,19 @@ namespace bramy
 
 
             if (robocizna.Text != "")
-                rob = Convert.ToDouble(robocizna.Text);
+                rob = Double.Parse(robocizna.Text, NumberStyles.Currency);
             else
                 rob = 0;
 
 
             if (dodatki.Text != "")
-                dod = Convert.ToDouble(dodatki.Text);
+                dod = Double.Parse(dodatki.Text, NumberStyles.Currency);
             else
                 dod = 0;
 
 
             if (ciecie.Text != "")
-                cie = Convert.ToDouble(ciecie.Text);
+                cie = Double.Parse(ciecie.Text, NumberStyles.Currency);
             else
                 cie = 0;
 
@@ -574,12 +621,12 @@ namespace bramy
                 case 2:
 
                     if (zawias1.Text != "")
-                        z1 = Convert.ToDouble(zawias1.Text);
+                        z1 = Double.Parse(zawias1.Text, NumberStyles.Currency);
                     else
                         z1 = 0;
 
                     if (zawias2.Text != "")
-                        z2 = Convert.ToDouble(zawias2.Text);
+                        z2 = Double.Parse(zawias2.Text, NumberStyles.Currency);
                     else
                         z2 = 0;
 
@@ -593,15 +640,14 @@ namespace bramy
                     double c44, c88;
                     double d44, d88;
                     double m44, m88;
-                    double k44, k88;
 
                     if (cp44.Text != "")
-                        c44 = Convert.ToDouble(cp44.Text);
+                        c44 = Double.Parse(cp44.Text, NumberStyles.Currency);
                     else
                         c44 = 0;
 
                     if (cpr88.Text != "")
-                        c88 = Convert.ToDouble(cpr88.Text);
+                        c88 = Double.Parse(cpr88.Text, NumberStyles.Currency);
                     else
                         c88 = 0;
 
@@ -616,12 +662,12 @@ namespace bramy
                         d88 = 0;
 
                     if (wozki.Text != "")
-                        woz = Convert.ToDouble(wozki.Text);
+                        woz = Double.Parse(wozki.Text, NumberStyles.Currency);
                     else
                         woz = 0;
 
                     if (kieszen.Text != "")
-                        kie = Convert.ToDouble(kieszen.Text);
+                        kie = Double.Parse(kieszen.Text, NumberStyles.Currency);
                     else
                         kie = 0;
 
@@ -634,8 +680,9 @@ namespace bramy
 
                     mp44.Text = Convert.ToString(m44);
                     mp88.Text = Convert.ToString(m88);
-                    kp44.Text = Convert.ToString(k44);
-                    kp88.Text = Convert.ToString(k88);
+
+                    kp44.Text = string.Format("{0:c}", k44);
+                    kp88.Text = string.Format("{0:c}", k88);
 
                     total = kosztm + kosztc + kpr + kpl + dod + cie + rob + k44 + k88 + woz + kie;
 
@@ -644,12 +691,12 @@ namespace bramy
                 case 4:
 
                     if (zawias1.Text != "")
-                        z1 = Convert.ToDouble(zawias1.Text);
+                        z1 = Double.Parse(zawias1.Text, NumberStyles.Currency);
                     else
                         z1 = 0;
 
                     if (zawias2.Text != "")
-                        z2 = Convert.ToDouble(zawias2.Text);
+                        z2 = Double.Parse(zawias2.Text, NumberStyles.Currency);
                     else
                         z2 = 0;
 
@@ -663,8 +710,6 @@ namespace bramy
             lbltotal.Text = string.Format("{0:c}", total);
             colour();
         }
-
-
         private void colour()
         {
             if (masa1.Text == "brak podanego profilu")
@@ -697,6 +742,124 @@ namespace bramy
             else
                 masap3.ForeColor = System.Drawing.Color.Black;
         }
+        private void save()
+        {
+            SaveFileDialog savefile = new SaveFileDialog();
+            // set a default file name
+            switch(tab)
+            {
+                case 1:
+                    savefile.FileName = "Przęsło.txt";
+                    break;
+                case 2:
+                    savefile.FileName = "Furtka.txt";
+                    break;
+                case 3:
+                    savefile.FileName = "Brama_przesuwna.txt";
+                    break;
+                case 4:
+                    savefile.FileName = "Brama_skrzydłowa.txt";
+                    break;
+            }
+            // set filters
+            savefile.Filter = "Text files (.txt)|.txt";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(savefile.FileName))
+                {
+                    //Profile
+                    if(kpr>0)
+                    {
+                        sw.WriteLine(string.Format("Profil\t\tDł_brutto\tDł_netto\n{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox1.Text, comboBox2.Text, comboBox3.Text, textBox1.Text, textBox2.Text));
+                        if (radioButton2.Checked)
+                        {
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text));
+
+                        }
+                        else if (radioButton3.Checked)
+                        {
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox7.Text, comboBox8.Text, comboBox9.Text, textBox5.Text, textBox6.Text));
+                        }
+                        else if (radioButton4.Checked)
+                        {
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox7.Text, comboBox8.Text, comboBox9.Text, textBox5.Text, textBox6.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox10.Text, comboBox11.Text, comboBox12.Text, textBox7.Text, textBox8.Text));
+                        }
+                        sw.WriteLine(string.Format("Masa_brutto\tMasa_netto\tKoszt\n{0,-16}{1,-16}{2,-16}\n\n", masab.Text, masan.Text, kosztpr.Text));
+                    }
+
+                    //Płaskowniki
+                    if (kpl>0)
+                    {
+                        sw.WriteLine(string.Format("Płaskownik\tDł_brutto\tDł_netto\n{0}x{1,-7}\t{2}\t\t{3}", comboBoxp1.Text, comboBoxp2.Text, textBoxp1.Text, textBoxp2.Text));
+                        if (radioButton6.Checked)
+                        {
+                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}", comboBoxp11.Text, comboBoxp21.Text, textBoxp3.Text, textBoxp4.Text));
+                        }
+                        else if (radioButton7.Checked)
+                        {
+                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}", comboBoxp11.Text, comboBoxp21.Text, textBoxp3.Text, textBoxp4.Text));
+                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}", comboBoxp12.Text, comboBoxp22.Text, textBoxp5.Text, textBoxp6.Text));
+                        }
+                        sw.WriteLine(string.Format("Masa_brutto\tMasa_netto\tKoszt\n{0,-16}{1,-16}{2,-16}\n\n", masabp.Text, masanp.Text, kosztpl.Text));
+                    }
+
+
+                    if (checkBox2.Checked)
+                    {
+                        sw.WriteLine(string.Format("Malowanie - {0}", km.Text));
+                    }
+                    if (checkBox1.Checked)
+                    {
+                        sw.WriteLine(string.Format("Cynkowanie - {0}", kc.Text));
+                    }
+
+                    switch(tab)
+                    {
+                        case 2:
+                            if (zawias1.Text != "") 
+                                sw.WriteLine(string.Format("Zawiasy regulowane - {0}", zawias1.Text));
+                            if (zawias2.Text != "")
+                                sw.WriteLine(string.Format("Przymyk + elektrozamek - {0}", zawias2.Text));                           
+                            break;
+
+                        case 3:
+                            if (k44>0)
+                                sw.WriteLine(string.Format("Prowadnica górna C 40x40 - {0}", kp44.Text));
+                            if (k88>0)
+                                sw.WriteLine(string.Format("Prowadnica 80x80 - {0}",kp88.Text));
+                            if (wozki.Text != "")
+                                sw.WriteLine(string.Format("Wózki - {0}", wozki.Text));
+                            if (kieszen.Text != "")
+                                sw.WriteLine(string.Format("Kieszeń najazdowa, rolki najazdowe górne, trzymanie górne, rolka najazdowa - {0}", kieszen.Text));
+                            break;
+
+                        case 4:
+                            if (zawias1.Text != "")
+                                sw.WriteLine(string.Format("Zawiasy regulowane - {0}", zawias1.Text));
+                            if (zawias2.Text != "")
+                                sw.WriteLine(string.Format("Zamknięcie + żaba - {0}", zawias2.Text));
+                            break;
+                    }
+
+                    if (robocizna.Text != "")
+                        sw.WriteLine(string.Format("Robocizna - {0}", robocizna.Text));
+                    if (dodatki.Text != "")
+                        sw.WriteLine(string.Format("Dodatki (groty, wzory, itp.) - {0}", dodatki.Text));
+                    if (ciecie.Text != "")
+                        sw.WriteLine(string.Format("Cięcie plazmowe {0}",  ciecie.Text));
+
+                    sw.WriteLine(string.Format("TOTAL - {0}\n", lbltotal.Text));
+
+
+                }
+            }
+        }
+
+
         private void fill1()
         {
             bool set = false; 
@@ -986,10 +1149,12 @@ namespace bramy
 
 
             clear();
+            update();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+
             //furtka
             tab = 2;
 
@@ -1005,9 +1170,8 @@ namespace bramy
             panelwozki.Visible = false;
             panelzz.Visible = false;
 
-
             clear();
-
+            update();
         }
 
         private void btnb_Click(object sender, EventArgs e)
@@ -1032,6 +1196,7 @@ namespace bramy
 
 
             clear();
+            update();
 
 
         }
@@ -1050,6 +1215,7 @@ namespace bramy
             panelzz.Visible = false;
 
             clear();
+            update();
         }
 
         private void btnbs_Click(object sender, EventArgs e)
@@ -1067,11 +1233,12 @@ namespace bramy
             panelzz.Visible = true;
 
             clear();
+            update();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnsave_Click(object sender, EventArgs e)
         {
-            update();
+            save();
         }
 
 
@@ -1194,8 +1361,6 @@ namespace bramy
         {
             fillp3();
         }
-
-
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
