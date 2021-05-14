@@ -15,8 +15,10 @@ namespace bramy
     public partial class Form1 : Form
     {
 
-        string[] lines = System.IO.File.ReadAllLines(@"C:\profile.txt");
-        string[] lines1 = System.IO.File.ReadAllLines(@"C:\plaskowniki.txt");
+        string[] lines = System.IO.File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Data\", "profile.txt"));
+        string[] lines1 = System.IO.File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Data\", "plaskowniki.txt"));
+        string[] linesdefault = System.IO.File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Data\", "default.txt"));
+
 
         string[,] arr = new string[1000, 9];
         string[,] arr1 = new string[1000, 12];
@@ -31,6 +33,9 @@ namespace bramy
         double total, rob, dod, cie;
         double woz, kie;
         double k44, k88;
+        double kpr1 = 0, kpr3 = 0, kpr4 = 0, kpr2 = 0, kpl1 = 0, kpl2 = 0, kpl3 = 0;
+
+
 
         double masap44 = 1.82;
         double masap88 = 10.04;
@@ -41,13 +46,12 @@ namespace bramy
 
             InitializeComponent();
 
-            textBox9.Text = "7,10 zł";
-            textBoxp9.Text = "7,10 zł";
+            textBox9.Text = linesdefault[0];
+            textBoxp9.Text = linesdefault[1];
+            cm.Text = linesdefault[2];
+            cc.Text = linesdefault[3];
 
-            cm.Text = "50,00 zł";
-            cc.Text = "2,70 zł";
 
-        
             textBox1.TextChanged += removenans;
             textBox2.TextChanged += removenans;
             textBox3.TextChanged += removenans;
@@ -399,6 +403,12 @@ namespace bramy
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     pow = p1*ln1;
+
+                    if (textBox9.Text != "")
+                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
+                    else
+                        kpr1 = 0;
+                    lblkpr1.Text = string.Format("{0:c}", kpr1);
                 }
                 else
                 {
@@ -422,6 +432,18 @@ namespace bramy
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     pow = p1*ln1 + p2*ln2;
+
+                    if (textBox9.Text != "")
+                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
+                    else
+                        kpr1 = 0;
+                    lblkpr1.Text = string.Format("{0:c}", kpr1);
+
+                    if (textBox9.Text != "")
+                        kpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m2 * l2;
+                    else
+                        kpr2 = 0;
+                    lblkpr2.Text = string.Format("{0:c}", kpr2);
                 }
                 else
                 {
@@ -444,6 +466,24 @@ namespace bramy
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     pow = p1*ln1 + p2*ln2 + p3*ln3;
+
+                    if (textBox9.Text != "")
+                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
+                    else
+                        kpr1 = 0;
+                    lblkpr1.Text = string.Format("{0:c}", kpr1);
+
+                    if (textBox9.Text != "")
+                        kpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m2 * l2;
+                    else
+                        kpr2 = 0;
+                    lblkpr2.Text = string.Format("{0:c}", kpr2); if (textBox9.Text != "")
+
+                        kpr3 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m3 * l3;
+                    else
+                        kpr3 = 0;
+                    lblkpr3.Text = string.Format("{0:c}", kpr3);
+
                 }
                 else
                 {
@@ -467,6 +507,28 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     pow = p1*ln1 + p2*ln2 + p3*ln3 + p4*ln4;
 
+                    if (textBox9.Text != "")
+                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
+                    else
+                        kpr1 = 0;
+                    lblkpr1.Text = string.Format("{0:c}", kpr1);
+
+                    if (textBox9.Text != "")
+                        kpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m2 * l2;
+                    else
+                        kpr2 = 0;
+                    lblkpr2.Text = string.Format("{0:c}", kpr2); if (textBox9.Text != "")
+
+                        kpr3 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m3 * l3;
+                    else
+                        kpr3 = 0;
+                    lblkpr3.Text = string.Format("{0:c}", kpr3);
+
+                    if (textBox9.Text != "")
+                        kpr4 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m4 * l4;
+                    else
+                        kpr4 = 0;
+                    lblkpr4.Text = string.Format("{0:c}", kpr4);
                 }
                 else
                 {
@@ -494,6 +556,13 @@ namespace bramy
                     masanp.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     powp = pp1 * lnp1;
+
+
+                    if (textBoxp9.Text != "")
+                        kpl1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp1 * lp1;
+                    else
+                        kpl1 = 0;
+                    lblkpl1.Text = string.Format("{0:c}", kpl1);
                 }
                 else
                 {
@@ -516,6 +585,18 @@ namespace bramy
                     masanp.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     powp = pp1 * lnp1 + pp2 * lnp2;
+
+                    if (textBoxp9.Text != "")
+                        kpl1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp1 * lp1;
+                    else
+                        kpl1 = 0;
+                    lblkpl1.Text = string.Format("{0:c}", kpl1);
+
+                    if (textBoxp9.Text != "")
+                        kpl2 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp2 * lp2;
+                    else
+                        kpl2 = 0;
+                    lblkpl2.Text = string.Format("{0:c}", kpl2);
                 }
                 else
                 {
@@ -538,6 +619,24 @@ namespace bramy
                     masanp.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     powp = pp1 * lnp1 + pp2 * lnp2 + pp3 * lnp3;
+
+                    if (textBoxp9.Text != "")
+                        kpl1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp1 * lp1;
+                    else
+                        kpl1 = 0;
+                    lblkpl1.Text = string.Format("{0:c}", kpl1);
+
+                    if (textBoxp9.Text != "")
+                        kpl2 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp2 * lp2;
+                    else
+                        kpl2 = 0;
+                    lblkpl2.Text = string.Format("{0:c}", kpl2);
+
+                    if (textBoxp9.Text != "")
+                        kpl3 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp3 * lp3;
+                    else
+                        kpl3 = 0;
+                    lblkpl3.Text = string.Format("{0:c}", kpl3);
                 }
                 else
                 {
@@ -744,6 +843,16 @@ namespace bramy
         }
         private void save()
         {
+            if (textBox9.Text != linesdefault[0] || textBoxp9.Text != linesdefault[1] || cm.Text != linesdefault[2] || cc.Text != linesdefault[3])
+            {
+                DialogResult result = MessageBox.Show("Czy zapisać ceny?", "Siema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    savedefault();
+                }
+            }
+
+
             SaveFileDialog savefile = new SaveFileDialog();
             // set a default file name
             switch(tab)
@@ -771,40 +880,40 @@ namespace bramy
                     //Profile
                     if(kpr>0)
                     {
-                        sw.WriteLine(string.Format("Profil\t\tDł_brutto\tDł_netto\n{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox1.Text, comboBox2.Text, comboBox3.Text, textBox1.Text, textBox2.Text));
+                        sw.WriteLine(string.Format("Profil\t\tDł_brutto\tDł_netto\tCena\n{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox1.Text, comboBox2.Text, comboBox3.Text, textBox1.Text, textBox2.Text, lblkpr1.Text));
                         if (radioButton2.Checked)
                         {
-                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text, lblkpr2.Text));
 
                         }
                         else if (radioButton3.Checked)
                         {
-                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text));
-                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox7.Text, comboBox8.Text, comboBox9.Text, textBox5.Text, textBox6.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text, lblkpr2.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox7.Text, comboBox8.Text, comboBox9.Text, textBox5.Text, textBox6.Text, lblkpr3.Text));
                         }
                         else if (radioButton4.Checked)
                         {
-                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text));
-                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox7.Text, comboBox8.Text, comboBox9.Text, textBox5.Text, textBox6.Text));
-                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}", comboBox10.Text, comboBox11.Text, comboBox12.Text, textBox7.Text, textBox8.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox4.Text, comboBox5.Text, comboBox6.Text, textBox3.Text, textBox4.Text, lblkpr2.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox7.Text, comboBox8.Text, comboBox9.Text, textBox5.Text, textBox6.Text, lblkpr3.Text));
+                            sw.WriteLine(string.Format("{0}x{1}x{2,-7}\t{3}\t\t{4}\t\t{5}", comboBox10.Text, comboBox11.Text, comboBox12.Text, textBox7.Text, textBox8.Text, lblkpr4.Text));
                         }
-                        sw.WriteLine(string.Format("Masa_brutto\tMasa_netto\tKoszt\n{0,-16}{1,-16}{2,-16}\n\n", masab.Text, masan.Text, kosztpr.Text));
+                        sw.WriteLine(string.Format("Cena_stali\tMasa_brutto\tMasa_netto\tKoszt\n{0,-16}{1,-16}{2,-16}{3,-16}\n\n",textBox9.Text, masab.Text, masan.Text, kosztpr.Text));
                     }
 
                     //Płaskowniki
                     if (kpl>0)
                     {
-                        sw.WriteLine(string.Format("Płaskownik\tDł_brutto\tDł_netto\n{0}x{1,-7}\t{2}\t\t{3}", comboBoxp1.Text, comboBoxp2.Text, textBoxp1.Text, textBoxp2.Text));
+                        sw.WriteLine(string.Format("Płaskownik\tDł_brutto\tDł_netto\tCena\n{0}x{1,-7}\t{2}\t\t{3}\t\t{4}", comboBoxp1.Text, comboBoxp2.Text, textBoxp1.Text, textBoxp2.Text,lblkpl1.Text));
                         if (radioButton6.Checked)
                         {
-                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}", comboBoxp11.Text, comboBoxp21.Text, textBoxp3.Text, textBoxp4.Text));
+                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}\t\t{4}", comboBoxp11.Text, comboBoxp21.Text, textBoxp3.Text, textBoxp4.Text,lblkpl2.Text));
                         }
                         else if (radioButton7.Checked)
                         {
-                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}", comboBoxp11.Text, comboBoxp21.Text, textBoxp3.Text, textBoxp4.Text));
-                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}", comboBoxp12.Text, comboBoxp22.Text, textBoxp5.Text, textBoxp6.Text));
+                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}\t\t{4}", comboBoxp11.Text, comboBoxp21.Text, textBoxp3.Text, textBoxp4.Text,lblkpl2.Text));
+                            sw.WriteLine(string.Format("{0}x{1,-7}\t{2}\t\t{3}\t\t{4}", comboBoxp12.Text, comboBoxp22.Text, textBoxp5.Text, textBoxp6.Text,lblkpl3.Text));
                         }
-                        sw.WriteLine(string.Format("Masa_brutto\tMasa_netto\tKoszt\n{0,-16}{1,-16}{2,-16}\n\n", masabp.Text, masanp.Text, kosztpl.Text));
+                        sw.WriteLine(string.Format("Cena_stali\tMasa_brutto\tMasa_netto\tKoszt\n{0,-16}{1,-16}{2,-16}{3,-16}\n\n",textBoxp9.Text, masabp.Text, masanp.Text, kosztpl.Text));
                     }
 
 
@@ -859,6 +968,20 @@ namespace bramy
             }
         }
 
+        private void savedefault()
+        {
+            if (textBox9.Text == "")
+                textBox9.Text = "7,10 zł";
+            if (textBoxp9.Text == "")
+                textBoxp9.Text = "7,10 zł";
+            if (cm.Text == "")
+                cm.Text = "50,00 zł";
+            if (cc.Text == "")
+                cc.Text = "2,70 zł";
+
+            string createText = string.Format("{0}\n{1}\n{2}\n{3}" ,textBox9.Text, textBoxp9.Text, cm.Text, cc.Text + Environment.NewLine);
+            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, @"Data\", "default.txt"), createText);
+        }
 
         private void fill1()
         {
@@ -1306,6 +1429,7 @@ namespace bramy
         {
             fill3();
         }
+
 
         private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
