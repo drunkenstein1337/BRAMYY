@@ -41,6 +41,10 @@
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
@@ -161,6 +165,9 @@
             this.lblkpl3 = new System.Windows.Forms.Label();
             this.label86 = new System.Windows.Forms.Label();
             this.lblkpl2 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this.lblkpl1 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
@@ -213,13 +220,6 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -495,6 +495,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(725, 320);
             this.panel1.TabIndex = 14;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(622, 94);
+            this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(47, 18);
+            this.label53.TabIndex = 78;
+            this.label53.Text = "Koszt";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(622, 169);
+            this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(47, 18);
+            this.label49.TabIndex = 77;
+            this.label49.Text = "Koszt";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(622, 249);
+            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(47, 18);
+            this.label47.TabIndex = 76;
+            this.label47.Text = "Koszt";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(622, 20);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(47, 18);
+            this.label23.TabIndex = 72;
+            this.label23.Text = "Koszt";
             // 
             // label82
             // 
@@ -1919,6 +1959,36 @@
             this.lblkpl2.TabIndex = 73;
             this.lblkpl2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(552, 169);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(47, 18);
+            this.label25.TabIndex = 73;
+            this.label25.Text = "Koszt";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(552, 94);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(47, 18);
+            this.label26.TabIndex = 74;
+            this.label26.Text = "Koszt";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(552, 19);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(47, 18);
+            this.label27.TabIndex = 75;
+            this.label27.Text = "Koszt";
+            // 
             // label85
             // 
             this.label85.AutoSize = true;
@@ -2571,76 +2641,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(725, 60);
             this.panel4.TabIndex = 15;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(622, 20);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(47, 18);
-            this.label23.TabIndex = 72;
-            this.label23.Text = "Koszt";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(552, 169);
-            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(47, 18);
-            this.label25.TabIndex = 73;
-            this.label25.Text = "Koszt";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(552, 94);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(47, 18);
-            this.label26.TabIndex = 74;
-            this.label26.Text = "Koszt";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(552, 19);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(47, 18);
-            this.label27.TabIndex = 75;
-            this.label27.Text = "Koszt";
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(622, 249);
-            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(47, 18);
-            this.label47.TabIndex = 76;
-            this.label47.Text = "Koszt";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(622, 169);
-            this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(47, 18);
-            this.label49.TabIndex = 77;
-            this.label49.Text = "Koszt";
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(622, 94);
-            this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(47, 18);
-            this.label53.TabIndex = 78;
-            this.label53.Text = "Koszt";
             // 
             // Form1
             // 
