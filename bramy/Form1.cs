@@ -24,6 +24,8 @@ namespace bramy
         string[,] arr1 = new string[1000, 12];
 
         int tab = 1;
+        int radio1 = 1;
+        int radio2 = 2;
 
         double kpr = 0, kpl = 0;
         double m1, m2, m3, m4;
@@ -31,15 +33,53 @@ namespace bramy
         double p1 = 0, p2 = 0, p3 = 0, p4 = 0;
         double pp1 = 0, pp2 = 0, pp3 = 0;
         double total, rob, dod, cie;
+        double cpr1, cpr2, cpr3, cpr4, cpl1, cpl2, cpl3;
         double woz, kie;
         double k44, k88;
         double kpr1 = 0, kpr3 = 0, kpr4 = 0, kpr2 = 0, kpl1 = 0, kpl2 = 0, kpl3 = 0;
-
+        double c44, c88;
+        double d44, d88;
 
 
         double masap44 = 1.82;
         double masap88 = 10.04;
         bool left = false;
+        bool cena = true;
+        bool cenapl = true;
+
+
+        //update method
+        double z1, z2;
+        double mn = 0;
+        double mb = 0;
+        double pow = 0;
+        double pow44 = 0;
+        double pow88 = 0;
+        double mnp = 0;
+        double mbp = 0;
+        double powp = 0;
+        double kosztm = 0;
+        double kosztc = 0;
+        double m44 = 0, m88 = 0;
+
+        //masa brutto
+        //dlugosc brutto
+        double l1 = 0;
+        double l2 = 0;
+        double l3 = 0;
+        double l4 = 0;
+        //dlughosc netto
+        double ln1 = 0;
+        double ln2 = 0;
+        double ln3 = 0;
+        double ln4 = 0;
+        //to samo dla profili
+        double lp1 = 0;
+        double lp2 = 0;
+        double lp3 = 0;
+        double lnp1 = 0;
+        double lnp2 = 0;
+        double lnp3 = 0;
 
         public Form1()
         {
@@ -88,6 +128,14 @@ namespace bramy
             wozki.TextChanged += removenans;
             kieszen.TextChanged += removenans;
 
+            cenap1.TextChanged += removenans;
+            cenap2.TextChanged += removenans;
+            cenap3.TextChanged += removenans;
+            cenap4.TextChanged += removenans;
+            cenapl1.TextChanged += removenans;
+            cenapl2.TextChanged += removenans;
+            cenapl3.TextChanged += removenans;
+
             //walutowe
             textBoxp9.Leave += currency;
             textBox9.Leave += currency;
@@ -107,8 +155,16 @@ namespace bramy
             wozki.Leave += currency;
             kieszen.Leave += currency;
 
+            cenap1.Leave += currency;
+            cenap2.Leave += currency;
+            cenap3.Leave += currency;
+            cenap4.Leave += currency;
+            cenapl1.Leave += currency;
+            cenapl2.Leave += currency;
+            cenapl3.Leave += currency;
 
-            
+
+
 
             cm.Enabled = false;
             lm.Enabled = false;
@@ -122,6 +178,13 @@ namespace bramy
             panelfurtki.Visible = false;
             panelbramy.Visible = false;
             panelwozki.Visible = false;
+
+            panelkoszt.Visible = false;
+            panelkosztpl.Visible = false;
+            panelcena.Visible = true;
+            btncena.Enabled = false;
+            panelcenapl.Visible = true;
+            btncenapl.Enabled = false;
 
             panel1.Height = 95;
             panel10.Height = 95;
@@ -311,23 +374,179 @@ namespace bramy
 
             colour();
         }
+
+        private void price()
+        {
+            //profile
+            if (cenap1.Text != "")
+            {
+                cpr1 = Double.Parse(cenap1.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBox9.Text != "")
+                    cpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency);
+                else
+                    cpr1 = 0;
+            }
+
+            if (cenap2.Text != "")
+            {
+                cpr2 = Double.Parse(cenap2.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBox9.Text != "")
+                    cpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency);
+                else
+                    cpr2 = 0;
+            }
+
+            if (cenap3.Text != "")
+            {
+                cpr3 = Double.Parse(cenap3.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBox9.Text != "")
+                    cpr3 = Double.Parse(textBox9.Text, NumberStyles.Currency);
+                else
+                    cpr3 = 0;
+            }
+
+            if (cenap4.Text != "")
+            {
+                cpr4 = Double.Parse(cenap4.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBox9.Text != "")
+                    cpr4 = Double.Parse(textBox9.Text, NumberStyles.Currency);
+                else
+                    cpr4 = 0;
+            }
+
+            switch (radio1)
+            {
+                case 1:
+                    kpr = cpr1 * m1 * l1;
+                    break;
+
+                case 2:
+                    kpr = cpr1 * m1 * l1 + cpr2 * m2 * l2;
+                    break;
+
+                case 3:
+                    kpr = cpr1 * m1 * l1 + cpr2 * m2 * l2 + cpr3 * m3 * l3;
+                    break;
+
+                case 4:
+                    kpr = cpr1 * m1 * l1 + cpr2 * m2 * l2 + cpr3 * m3 * l3 + cpr4 * m4 * l4;
+                    break;
+            }
+            kosztpr.Text = string.Format("{0:c}", kpr);
+
+
+            if (cena == false)
+            {
+                if (textBox9.Text != "")
+                {
+                    kpr1 = cpr1 * m1 * l1;
+                    kpr2 = cpr2 * m2 * l2;
+                    kpr3 = cpr3 * m3 * l3;
+                    kpr4 = cpr4 * m4 * l4;
+                }
+                else
+                {
+                    kpr1 = 0;
+                    kpr2 = 0;
+                    kpr3 = 0;
+                    kpr4 = 0;
+                }
+                
+                lblkpr1.Text = string.Format("{0:c}", kpr1);
+                lblkpr2.Text = string.Format("{0:c}", kpr2);
+                lblkpr3.Text = string.Format("{0:c}", kpr3);
+                lblkpr4.Text = string.Format("{0:c}", kpr4);                   
+            }
+
+
+            //plaskowniki
+
+            if (cenapl1.Text != "")
+            {
+                cpl1 = Double.Parse(cenapl1.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBoxp9.Text != "")
+                    cpr1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency);
+                else
+                    cpr1 = 0;
+            }
+
+            if (cenapl2.Text != "")
+            {
+                cpl2 = Double.Parse(cenapl2.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBoxp9.Text != "")
+                    cpl2 = Double.Parse(textBoxp9.Text, NumberStyles.Currency);
+                else
+                    cpl2 = 0;
+            }
+
+            if (cenapl3.Text != "")
+            {
+                cpl3 = Double.Parse(cenapl3.Text, NumberStyles.Currency);
+            }
+            else
+            {
+                if (textBoxp9.Text != "")
+                    cpl3 = Double.Parse(textBoxp9.Text, NumberStyles.Currency);
+                else
+                    cpl3 = 0;
+            }
+
+            switch (radio2)
+            {
+                case 1:
+                    kpl = cpl1 * mp1 * lp1;
+                    break;
+
+                case 2:
+                    kpl = cpl1 * mp1 * lp1 + cpl2 * mp2 * lp2;
+                    break;
+
+                case 3:
+                    kpl = cpl1 * mp1 * lp1 + cpl2 * mp2 * lp2 + cpl3 * mp3 * lp3;
+                    break;
+            }
+            kosztpl.Text = string.Format("{0:c}", kpl);
+
+            if (cenapl == false)
+            {
+                if (textBoxp9.Text != "")
+                {
+                    kpl1 = cpl1 * mp1 * lp1;
+                    kpl2 = cpl2 * mp2 * lp2;
+                    kpl3 = cpl3 * mp3 * lp3;
+                }
+                else
+                {
+                    kpl1 = 0;
+                    kpl2 = 0;
+                    kpl3 = 0;
+                }
+
+                lblkpl1.Text = string.Format("{0:c}", kpl1);
+                lblkpl2.Text = string.Format("{0:c}", kpl2);
+                lblkpl3.Text = string.Format("{0:c}", kpl3);
+            }
+        }
         private void update()
         {
-            double z1, z2;
-            double mn = 0;
-            double mb = 0;
-            double pow = 0;
-            double mnp = 0;
-            double mbp = 0;
-            double powp = 0;
-            double kosztm = 0;
-            double kosztc = 0;
-
-            //masa brutto
-            double l1 = 0;
-            double l2 = 0;
-            double l3 = 0;
-            double l4 = 0;
 
             if (textBox1.Text != "")
                 l1 = Convert.ToDouble(textBox1.Text);
@@ -342,10 +561,7 @@ namespace bramy
                 l4 = Convert.ToDouble(textBox7.Text);
 
             //masa netto
-            double ln1 = 0;
-            double ln2 = 0;
-            double ln3 = 0;
-            double ln4 = 0;
+
 
             if (textBox2.Text != "")
                 ln1 = Convert.ToDouble(textBox2.Text);
@@ -361,9 +577,7 @@ namespace bramy
 
             //dla plskownikow
             //masa brutto
-            double lp1 = 0;
-            double lp2 = 0;
-            double lp3 = 0;
+
 
             if (textBoxp1.Text != "")
                 lp1 = Convert.ToDouble(textBoxp1.Text);
@@ -375,9 +589,7 @@ namespace bramy
                 lp3 = Convert.ToDouble(textBoxp5.Text);
 
             //masa netto
-            double lnp1 = 0;
-            double lnp2 = 0;
-            double lnp3 = 0;
+
 
             if (textBoxp2.Text != "")
                 lnp1 = Convert.ToDouble(textBoxp2.Text);
@@ -390,8 +602,11 @@ namespace bramy
 
 
             //obliczenia profili
-            if (radioButton1.Checked)
+            switch(radio1)
             {
+
+                case 1:
+            
                 if (masa1.Text != "brak podanego profilu")
                 {
                     mb = m1 * l1;
@@ -402,24 +617,20 @@ namespace bramy
                     masan.Text = Convert.ToString(mn);
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
-                    pow = p1*ln1;
+                    pow = p1 * ln1;
 
-                    if (textBox9.Text != "")
-                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
-                    else
-                        kpr1 = 0;
-                    lblkpr1.Text = string.Format("{0:c}", kpr1);
                 }
                 else
                 {
                     masab.ForeColor = System.Drawing.Color.Red;
                     masan.ForeColor = System.Drawing.Color.Red;
                     lbltotal.ForeColor = System.Drawing.Color.Red;
-
                 }
-            }
-            else if (radioButton2.Checked)
-            {
+
+                    break;
+
+                case 2:
+             
                 if (masa1.Text != "brak podanego profilu" && masa2.Text != "brak podanego profilu")
                 {
                     mb = m1 * l1 + m2 * l2;
@@ -431,19 +642,8 @@ namespace bramy
                     masan.Text = Convert.ToString(mn);
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
-                    pow = p1*ln1 + p2*ln2;
+                    pow = p1 * ln1 + p2 * ln2;
 
-                    if (textBox9.Text != "")
-                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
-                    else
-                        kpr1 = 0;
-                    lblkpr1.Text = string.Format("{0:c}", kpr1);
-
-                    if (textBox9.Text != "")
-                        kpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m2 * l2;
-                    else
-                        kpr2 = 0;
-                    lblkpr2.Text = string.Format("{0:c}", kpr2);
                 }
                 else
                 {
@@ -452,9 +652,11 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Red;
 
                 }
-            }
-            else if (radioButton3.Checked)
-            {   
+            
+                    break;
+
+                case 3:
+                    
                 if (masa1.Text != "brak podanego profilu" && masa2.Text != "brak podanego profilu" && masa3.Text != "brak podanego profilu")
                 {
                     mb = m1 * l1 + m2 * l2 + m3 * l3;
@@ -465,24 +667,7 @@ namespace bramy
                     masan.Text = Convert.ToString(mn);
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
-                    pow = p1*ln1 + p2*ln2 + p3*ln3;
-
-                    if (textBox9.Text != "")
-                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
-                    else
-                        kpr1 = 0;
-                    lblkpr1.Text = string.Format("{0:c}", kpr1);
-
-                    if (textBox9.Text != "")
-                        kpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m2 * l2;
-                    else
-                        kpr2 = 0;
-                    lblkpr2.Text = string.Format("{0:c}", kpr2); if (textBox9.Text != "")
-
-                        kpr3 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m3 * l3;
-                    else
-                        kpr3 = 0;
-                    lblkpr3.Text = string.Format("{0:c}", kpr3);
+                    pow = p1 * ln1 + p2 * ln2 + p3 * ln3;
 
                 }
                 else
@@ -492,9 +677,10 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Red;
 
                 }
-            }
-            else if (radioButton4.Checked)
-            {
+                    break;
+
+                case 4:
+            
                 if (masa1.Text != "brak podanego profilu" && masa2.Text != "brak podanego profilu" && masa3.Text != "brak podanego profilu" && masa4.Text != "brak podanego profilu")
                 {
                     mb = m1 * l1 + m2 * l2 + m3 * l3 + m4 * l4;
@@ -505,45 +691,26 @@ namespace bramy
                     masan.Text = Convert.ToString(mn);
                     masan.ForeColor = System.Drawing.Color.Black;
                     lbltotal.ForeColor = System.Drawing.Color.Black;
-                    pow = p1*ln1 + p2*ln2 + p3*ln3 + p4*ln4;
+                    pow = p1 * ln1 + p2 * ln2 + p3 * ln3 + p4 * ln4;
 
-                    if (textBox9.Text != "")
-                        kpr1 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m1 * l1;
-                    else
-                        kpr1 = 0;
-                    lblkpr1.Text = string.Format("{0:c}", kpr1);
 
-                    if (textBox9.Text != "")
-                        kpr2 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m2 * l2;
-                    else
-                        kpr2 = 0;
-                    lblkpr2.Text = string.Format("{0:c}", kpr2); if (textBox9.Text != "")
-
-                        kpr3 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m3 * l3;
-                    else
-                        kpr3 = 0;
-                    lblkpr3.Text = string.Format("{0:c}", kpr3);
-
-                    if (textBox9.Text != "")
-                        kpr4 = Double.Parse(textBox9.Text, NumberStyles.Currency) * m4 * l4;
-                    else
-                        kpr4 = 0;
-                    lblkpr4.Text = string.Format("{0:c}", kpr4);
                 }
                 else
                 {
                     masab.ForeColor = System.Drawing.Color.Red;
                     masan.ForeColor = System.Drawing.Color.Red;
                     lbltotal.ForeColor = System.Drawing.Color.Red;
-
-
                 }
+                    break;
             }
+           
 
             //dla plaskowników
 
-            if (radioButton5.Checked)
+            switch(radio2)
             {
+                case 1:
+
                 if (masap1.Text != "brak podanego profilu")
                 {
 
@@ -557,12 +724,6 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     powp = pp1 * lnp1;
 
-
-                    if (textBoxp9.Text != "")
-                        kpl1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp1 * lp1;
-                    else
-                        kpl1 = 0;
-                    lblkpl1.Text = string.Format("{0:c}", kpl1);
                 }
                 else
                 {
@@ -571,9 +732,10 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Red;
 
                 }
-            }
-            else if (radioButton6.Checked)
-            {
+                    break;
+
+                case 2:  
+                    
                 if (masap1.Text != "brak podanego profilu" && masap2.Text != "brak podanego profilu")
                 {
                     mbp = mp1 * lp1 + mp2 * lp2;
@@ -586,28 +748,17 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     powp = pp1 * lnp1 + pp2 * lnp2;
 
-                    if (textBoxp9.Text != "")
-                        kpl1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp1 * lp1;
-                    else
-                        kpl1 = 0;
-                    lblkpl1.Text = string.Format("{0:c}", kpl1);
-
-                    if (textBoxp9.Text != "")
-                        kpl2 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp2 * lp2;
-                    else
-                        kpl2 = 0;
-                    lblkpl2.Text = string.Format("{0:c}", kpl2);
                 }
                 else
                 {
                     masabp.ForeColor = System.Drawing.Color.Red;
                     masanp.ForeColor = System.Drawing.Color.Red;
                     lbltotal.ForeColor = System.Drawing.Color.Red;
-
                 }
-            }
-            else if (radioButton7.Checked)
-            {
+                    break;
+
+                case 3:
+
                 if (masap1.Text != "brak podanego profilu" && masap2.Text != "brak podanego profilu" && masap3.Text != "brak podanego profilu")
                 {
                     mbp = mp1 * lp1 + mp2 * lp2 + mp3 * lp3;
@@ -620,23 +771,6 @@ namespace bramy
                     lbltotal.ForeColor = System.Drawing.Color.Black;
                     powp = pp1 * lnp1 + pp2 * lnp2 + pp3 * lnp3;
 
-                    if (textBoxp9.Text != "")
-                        kpl1 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp1 * lp1;
-                    else
-                        kpl1 = 0;
-                    lblkpl1.Text = string.Format("{0:c}", kpl1);
-
-                    if (textBoxp9.Text != "")
-                        kpl2 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp2 * lp2;
-                    else
-                        kpl2 = 0;
-                    lblkpl2.Text = string.Format("{0:c}", kpl2);
-
-                    if (textBoxp9.Text != "")
-                        kpl3 = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mp3 * lp3;
-                    else
-                        kpl3 = 0;
-                    lblkpl3.Text = string.Format("{0:c}", kpl3);
                 }
                 else
                 {
@@ -644,50 +778,13 @@ namespace bramy
                     masanp.ForeColor = System.Drawing.Color.Red;
                     lbltotal.ForeColor = System.Drawing.Color.Red;
                 }
+                    break;
             }
 
 
-
+            price();
             double cenac = 0;
             double cenam = 0;
-
-
-            if (checkBox2.Checked)
-            {
-                if (cm.Text != "")
-                    cenam = Double.Parse(cm.Text, NumberStyles.Currency);
-
-                kosztm = cenam * (pow + powp) / 1000;
-                lm.Text = Convert.ToString((pow + powp) / 1000);
-                km.Text = string.Format("{0:c}", kosztm);
-               // label31.Text = Convert.ToString(pow);
-            }
-
-            if (checkBox1.Checked)
-            {
-                if (cc.Text != "")
-                    cenac = Double.Parse(cc.Text, NumberStyles.Currency);
-
-                kosztc = cenac * (mn + mnp);
-                lc.Text = Convert.ToString(mn + mnp);
-                kc.Text = string.Format("{0:c}", kosztc);
-            }
-
-
-            if (textBox9.Text != "")
-                kpr = Double.Parse(textBox9.Text, NumberStyles.Currency) * mb;
-            else
-                kpr = 0;
-
-            kosztpr.Text = string.Format("{0:c}", kpr);
-
-
-            if (textBoxp9.Text != "")
-                kpl = Double.Parse(textBoxp9.Text, NumberStyles.Currency) * mbp;
-            else
-                kpl = 0;
-
-            kosztpl.Text = string.Format("{0:c}", kpl);
 
 
             if (robocizna.Text != "")
@@ -706,6 +803,69 @@ namespace bramy
                 cie = Double.Parse(ciecie.Text, NumberStyles.Currency);
             else
                 cie = 0;
+
+
+            if (cenap1.Text != "")
+                cpr1 = Double.Parse(cenap1.Text, NumberStyles.Currency);
+            else
+                cpr1 = 0;
+
+
+            if (checkBox2.Checked)
+            {
+                if (cm.Text != "")
+                {
+                    cenam = Double.Parse(cm.Text, NumberStyles.Currency);
+                }
+
+                if (lp44.Text != "")
+                {
+                    d44 = Convert.ToDouble(lp44.Text);
+                    pow44 = d44 * 240;
+                }
+                else
+                    d44 = 0;
+
+                if (lp88.Text != "")
+                {
+                    d88 = Convert.ToDouble(lp88.Text);
+                    pow88 = d88 * 240;
+                }
+                else
+                    d88 = 0;
+
+                kosztm = cenam * (pow + powp + pow44 + pow88) / 1000;
+                lm.Text = Convert.ToString((pow + powp + pow44 + pow88) / 1000);
+                km.Text = string.Format("{0:c}", kosztm);
+                // label31.Text = Convert.ToString(pow);
+            }
+
+            if (checkBox1.Checked)
+            {
+                if (cc.Text != "")
+                    cenac = Double.Parse(cc.Text, NumberStyles.Currency);
+
+                if (lp44.Text != "")
+                {
+                    d44 = Convert.ToDouble(lp44.Text);
+                }
+                else
+                    d44 = 0;
+
+                if (lp88.Text != "")
+                {
+                    d88 = Convert.ToDouble(lp88.Text);
+                }
+                else
+                    d88 = 0;
+
+                m44 = masap44 * d44;
+                m88 = masap88 * d88;
+
+                kosztc = cenac * (mn + mnp + m44 + m88);
+                lc.Text = Convert.ToString(mn + mnp + m44 + m88);
+                kc.Text = string.Format("{0:c}", kosztc);
+            }
 
 
             switch (tab)
@@ -736,10 +896,6 @@ namespace bramy
 
                 case 3:
 
-                    double c44, c88;
-                    double d44, d88;
-                    double m44, m88;
-
                     if (cp44.Text != "")
                         c44 = Double.Parse(cp44.Text, NumberStyles.Currency);
                     else
@@ -756,7 +912,7 @@ namespace bramy
                         d44 = 0;
 
                     if (lp88.Text != "")
-                        d88 = Convert.ToDouble(lp88.Text);
+                        d88 = Convert.ToDouble(lp88.Text);               
                     else
                         d88 = 0;
 
@@ -783,7 +939,9 @@ namespace bramy
                     kp44.Text = string.Format("{0:c}", k44);
                     kp88.Text = string.Format("{0:c}", k88);
 
+
                     total = kosztm + kosztc + kpr + kpl + dod + cie + rob + k44 + k88 + woz + kie;
+                    
 
                     break;
 
@@ -804,8 +962,7 @@ namespace bramy
                     break;
             }
 
-                
-            
+
             lbltotal.Text = string.Format("{0:c}", total);
             colour();
         }
@@ -1324,6 +1481,8 @@ namespace bramy
 
         }
 
+
+
         private void btnbp_Click(object sender, EventArgs e)
         {
             //przesuwna
@@ -1368,12 +1527,14 @@ namespace bramy
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            radio1 = 1;
             panel1.Height = 95;
             update();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+            radio1 = 2;
             panel1.Height = 170;
             update();
 
@@ -1381,6 +1542,8 @@ namespace bramy
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
+            radio1 = 3;
+
             panel1.Height = 245;
             update();
 
@@ -1388,17 +1551,73 @@ namespace bramy
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
+            radio1 = 4;
+
             panel1.Height = 320;
             update();
 
         }
 
 
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             fill1();
         }
+
+        private void btncena_Click(object sender, EventArgs e)
+        {
+            btncena.Enabled = false;
+            btnkoszt.Enabled = true;
+
+            panelcena.Visible = true;
+            panelkoszt.Visible = false;
+
+            cena = true;
+
+            update();
+
+        }
+
+        private void btnkoszt_Click(object sender, EventArgs e)
+        {
+            btnkoszt.Enabled = false;
+            btncena.Enabled = true;
+
+            panelcena.Visible = false;
+            panelkoszt.Visible = true;
+
+            cena = false;
+
+            update();
+        }
+
+        private void btncenapl_Click(object sender, EventArgs e)
+        {
+            btncenapl.Enabled = false;
+            btnkosztpl.Enabled = true;
+
+            panelcenapl.Visible = true;
+            panelkosztpl.Visible = false;
+
+            cenapl = true;
+
+            update();
+        }
+
+        private void btnkosztpl_Click(object sender, EventArgs e)
+        {
+            btnkosztpl.Enabled = false;
+            btncenapl.Enabled = true;
+
+            panelcenapl.Visible = false;
+            panelkosztpl.Visible = true;
+
+            cenapl = false;
+
+            update();
+        }
+
+
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1488,6 +1707,8 @@ namespace bramy
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
+            radio2 = 1;
+
             panel10.Height = 95;
             panel12.Location = new System.Drawing.Point(602, 180);
             panel12.Height = 240;
@@ -1497,6 +1718,8 @@ namespace bramy
 
         private void radioButton6_CheckedChanged(object sender, EventArgs e)
         {
+            radio2 = 2;
+
             panel10.Height = 170;
             panel12.Location = new System.Drawing.Point(602, 255);
             panel12.Height = 165;
@@ -1506,6 +1729,8 @@ namespace bramy
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
         {
+            radio2 = 3;
+
             panel10.Height = 245;
             panel12.Location = new System.Drawing.Point(602, 330);
             panel12.Height = 90;
