@@ -162,15 +162,15 @@
             this.kieszen = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label81 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.dodatkipow = new System.Windows.Forms.TextBox();
             this.label80 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.dodatkimasa = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
             this.btnsave = new System.Windows.Forms.Button();
             this.panelwozki = new System.Windows.Forms.Panel();
             this.label55 = new System.Windows.Forms.Label();
             this.ciecie = new System.Windows.Forms.TextBox();
-            this.dodatki = new System.Windows.Forms.TextBox();
+            this.dodatkicena = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -247,6 +247,7 @@
             this.cenapl3 = new System.Windows.Forms.TextBox();
             this.cenapl2 = new System.Windows.Forms.TextBox();
             this.cenapl1 = new System.Windows.Forms.TextBox();
+            this.btnclear = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelcena.SuspendLayout();
             this.panelkoszt.SuspendLayout();
@@ -1898,16 +1899,17 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.btnclear);
             this.panel8.Controls.Add(this.label81);
-            this.panel8.Controls.Add(this.textBox11);
+            this.panel8.Controls.Add(this.dodatkipow);
             this.panel8.Controls.Add(this.label80);
-            this.panel8.Controls.Add(this.textBox10);
+            this.panel8.Controls.Add(this.dodatkimasa);
             this.panel8.Controls.Add(this.label79);
             this.panel8.Controls.Add(this.btnsave);
             this.panel8.Controls.Add(this.panelwozki);
             this.panel8.Controls.Add(this.label55);
             this.panel8.Controls.Add(this.ciecie);
-            this.panel8.Controls.Add(this.dodatki);
+            this.panel8.Controls.Add(this.dodatkicena);
             this.panel8.Controls.Add(this.label14);
             this.panel8.Controls.Add(this.label40);
             this.panel8.Controls.Add(this.label39);
@@ -1929,13 +1931,13 @@
             this.label81.TabIndex = 97;
             this.label81.Text = "Powierzchnia";
             // 
-            // textBox11
+            // dodatkipow
             // 
-            this.textBox11.Location = new System.Drawing.Point(475, 171);
-            this.textBox11.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(100, 24);
-            this.textBox11.TabIndex = 96;
+            this.dodatkipow.Location = new System.Drawing.Point(475, 171);
+            this.dodatkipow.Margin = new System.Windows.Forms.Padding(4);
+            this.dodatkipow.Name = "dodatkipow";
+            this.dodatkipow.Size = new System.Drawing.Size(100, 24);
+            this.dodatkipow.TabIndex = 96;
             // 
             // label80
             // 
@@ -1947,13 +1949,13 @@
             this.label80.TabIndex = 95;
             this.label80.Text = "Masa";
             // 
-            // textBox10
+            // dodatkimasa
             // 
-            this.textBox10.Location = new System.Drawing.Point(355, 171);
-            this.textBox10.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(100, 24);
-            this.textBox10.TabIndex = 94;
+            this.dodatkimasa.Location = new System.Drawing.Point(355, 171);
+            this.dodatkimasa.Margin = new System.Windows.Forms.Padding(4);
+            this.dodatkimasa.Name = "dodatkimasa";
+            this.dodatkimasa.Size = new System.Drawing.Size(100, 24);
+            this.dodatkimasa.TabIndex = 94;
             // 
             // label79
             // 
@@ -1967,9 +1969,9 @@
             // 
             // btnsave
             // 
-            this.btnsave.Location = new System.Drawing.Point(574, 216);
+            this.btnsave.Location = new System.Drawing.Point(617, 220);
             this.btnsave.Name = "btnsave";
-            this.btnsave.Size = new System.Drawing.Size(123, 40);
+            this.btnsave.Size = new System.Drawing.Size(95, 40);
             this.btnsave.TabIndex = 92;
             this.btnsave.Text = "Zapisz";
             this.btnsave.UseVisualStyleBackColor = true;
@@ -2004,13 +2006,13 @@
             this.ciecie.Size = new System.Drawing.Size(100, 24);
             this.ciecie.TabIndex = 81;
             // 
-            // dodatki
+            // dodatkicena
             // 
-            this.dodatki.Location = new System.Drawing.Point(235, 171);
-            this.dodatki.Margin = new System.Windows.Forms.Padding(4);
-            this.dodatki.Name = "dodatki";
-            this.dodatki.Size = new System.Drawing.Size(100, 24);
-            this.dodatki.TabIndex = 79;
+            this.dodatkicena.Location = new System.Drawing.Point(235, 171);
+            this.dodatkicena.Margin = new System.Windows.Forms.Padding(4);
+            this.dodatkicena.Name = "dodatkicena";
+            this.dodatkicena.Size = new System.Drawing.Size(100, 24);
+            this.dodatkicena.TabIndex = 79;
             // 
             // label14
             // 
@@ -2941,6 +2943,16 @@
             this.cenapl1.Size = new System.Drawing.Size(100, 24);
             this.cenapl1.TabIndex = 72;
             // 
+            // btnclear
+            // 
+            this.btnclear.Location = new System.Drawing.Point(505, 220);
+            this.btnclear.Name = "btnclear";
+            this.btnclear.Size = new System.Drawing.Size(95, 40);
+            this.btnclear.TabIndex = 98;
+            this.btnclear.Text = "Wyczyść";
+            this.btnclear.UseVisualStyleBackColor = true;
+            this.btnclear.Click += new System.EventHandler(this.btnclear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -3112,7 +3124,7 @@
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.TextBox dodatki;
+        private System.Windows.Forms.TextBox dodatkicena;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label39;
@@ -3195,9 +3207,9 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label80;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox dodatkimasa;
         private System.Windows.Forms.Label label79;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox dodatkipow;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.Button btnkoszt;
         private System.Windows.Forms.Button btncena;
@@ -3222,6 +3234,7 @@
         private System.Windows.Forms.TextBox cenapl3;
         private System.Windows.Forms.TextBox cenapl2;
         private System.Windows.Forms.TextBox cenapl1;
+        private System.Windows.Forms.Button btnclear;
     }
 }
 

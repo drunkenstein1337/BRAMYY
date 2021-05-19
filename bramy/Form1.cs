@@ -18,12 +18,22 @@ namespace bramy
         string[] lines = System.IO.File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Data\", "profile.txt"));
         string[] lines1 = System.IO.File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Data\", "plaskowniki.txt"));
         string[] linesdefault = System.IO.File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, @"Data\", "default.txt"));
+        string[] przeslo = new string[50];
+        string[] furtka = new string[50];
+        string[] bramaprzesuwna = new string[50];
+        string[] bramaskrzydlowa = new string[50];
+
+        string[] przeslocomboboxindex = new string[20];
+        string[] furtkacomboboxindex = new string[20];
+        string[] bramaprzesuwnacomboboxindex = new string[20];
+        string[] bramaskrzydlowacomboboxindex = new string[20];
 
 
         string[,] arr = new string[1000, 9];
         string[,] arr1 = new string[1000, 12];
 
         int tab = 1;
+        int currenttab = 1;
         int radio1 = 1;
         int radio2 = 2;
 
@@ -39,13 +49,15 @@ namespace bramy
         double kpr1 = 0, kpr3 = 0, kpr4 = 0, kpr2 = 0, kpl1 = 0, kpl2 = 0, kpl3 = 0;
         double c44, c88;
         double d44, d88;
-
+        double cenac = 0;
+        double cenam = 0;
 
         double masap44 = 1.82;
         double masap88 = 10.04;
         bool left = false;
         bool cena = true;
         bool cenapl = true;
+
 
 
         //update method
@@ -115,7 +127,7 @@ namespace bramy
             cc.TextChanged += removenans;
 
             robocizna.TextChanged += removenans;
-            dodatki.TextChanged += removenans;
+            dodatkicena.TextChanged += removenans;
             ciecie.TextChanged += removenans;
 
             zawias1.TextChanged += removenans;
@@ -141,7 +153,7 @@ namespace bramy
             textBox9.Leave += currency;
 
             robocizna.Leave += currency;
-            dodatki.Leave += currency;
+            dodatkicena.Leave += currency;
             ciecie.Leave += currency;
 
             cm.Leave += currency;
@@ -221,6 +233,21 @@ namespace bramy
 
             }
 
+            for (int n = 0; n < 50; n++)
+            {
+                przeslo[n] = "";
+                bramaprzesuwna[n] = "";
+                bramaskrzydlowa[n] = "";
+                furtka[n] = "";
+
+            }
+            for (int n = 0; n < 20; n++)
+            {
+                przeslocomboboxindex[n] = null;
+                bramaprzesuwnacomboboxindex[n] = null;
+                bramaskrzydlowacomboboxindex[n] = null;
+                furtkacomboboxindex[n] = null;
+            }
         }
 
         private void removenans(object sender, EventArgs e)
@@ -309,7 +336,6 @@ namespace bramy
             comboBoxp21.SelectedItem = null;
             comboBoxp12.SelectedItem = null;
             comboBoxp22.SelectedItem = null;
-
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
@@ -318,26 +344,23 @@ namespace bramy
             textBox6.Text = "";
             textBox7.Text = "";
             textBox8.Text = "";
-
             textBoxp1.Text = "";
             textBoxp2.Text = "";
             textBoxp3.Text = "";
             textBoxp4.Text = "";
             textBoxp5.Text = "";
             textBoxp6.Text = "";
-
             lm.Text = "";
             km.Text = "";
             lc.Text = "";
             kc.Text = "";
-
             robocizna.Text = "";
-            dodatki.Text = "";
+            dodatkicena.Text = "";
+            dodatkimasa.Text = "";
+            dodatkipow.Text = "";
             ciecie.Text = "";
-
             zawias1.Text = "";
             zawias2.Text = "";
-
             cp44.Text = "";
             cpr88.Text = "";
             lp44.Text = "";
@@ -346,10 +369,8 @@ namespace bramy
             kp44.Text = "";
             mp88.Text = "";
             kp88.Text = "";
-
             wozki.Text = "";
             kieszen.Text = "";
-
             masa1.Text = "";
             masa2.Text = "";
             masa3.Text = "";
@@ -357,7 +378,6 @@ namespace bramy
             masap1.Text = "";
             masap2.Text = "";
             masap3.Text = "";
-
             masab.Text = "";
             masan.Text = "";
             masabp.Text = "";
@@ -367,7 +387,6 @@ namespace bramy
 
             radioButton1.Checked = true;
             radioButton5.Checked = true;
-
             checkBox1.Checked = false;
             checkBox2.Checked = false;
 
@@ -547,58 +566,32 @@ namespace bramy
         }
         private void update()
         {
+            //dlugosc netto
 
-            if (textBox1.Text != "")
-                l1 = Convert.ToDouble(textBox1.Text);
+            l1 = (textBox1.Text != "") ? Convert.ToDouble(textBox1.Text) : 0;
+            l2 = (textBox3.Text != "") ? Convert.ToDouble(textBox3.Text) : 0;
+            l3 = (textBox5.Text != "") ? Convert.ToDouble(textBox5.Text) : 0;
+            l4 = (textBox7.Text != "") ? Convert.ToDouble(textBox7.Text) : 0;
 
-            if (textBox3.Text != "")
-                l2 = Convert.ToDouble(textBox3.Text);
+            //dlugosc netto
 
-            if (textBox5.Text != "")
-                l3 = Convert.ToDouble(textBox5.Text);
-
-            if (textBox7.Text != "")
-                l4 = Convert.ToDouble(textBox7.Text);
-
-            //masa netto
-
-
-            if (textBox2.Text != "")
-                ln1 = Convert.ToDouble(textBox2.Text);
-
-            if (textBox4.Text != "")
-                ln2 = Convert.ToDouble(textBox4.Text);
-
-            if (textBox6.Text != "")
-                ln3 = Convert.ToDouble(textBox6.Text);
-
-            if (textBox8.Text != "")
-                ln4 = Convert.ToDouble(textBox8.Text);
+            ln1 = (textBox2.Text != "") ? Convert.ToDouble(textBox2.Text) : 0;
+            ln2 = (textBox4.Text != "") ? Convert.ToDouble(textBox4.Text) : 0;
+            ln3 = (textBox6.Text != "") ? Convert.ToDouble(textBox6.Text) : 0;
+            ln4 = (textBox8.Text != "") ? Convert.ToDouble(textBox8.Text) : 0;
 
             //dla plskownikow
-            //masa brutto
+            //dlugosc brutto
 
+            lp1 = (textBoxp1.Text != "") ? Convert.ToDouble(textBoxp1.Text) : 0;
+            lp2 = (textBoxp3.Text != "") ? Convert.ToDouble(textBoxp3.Text) : 0;
+            lp3 = (textBoxp5.Text != "") ? Convert.ToDouble(textBoxp5.Text) : 0;
 
-            if (textBoxp1.Text != "")
-                lp1 = Convert.ToDouble(textBoxp1.Text);
+            //dlugosc netto
 
-            if (textBoxp3.Text != "")
-                lp2 = Convert.ToDouble(textBoxp3.Text);
-
-            if (textBoxp5.Text != "")
-                lp3 = Convert.ToDouble(textBoxp5.Text);
-
-            //masa netto
-
-
-            if (textBoxp2.Text != "")
-                lnp1 = Convert.ToDouble(textBoxp2.Text);
-
-            if (textBoxp4.Text != "")
-                lnp2 = Convert.ToDouble(textBoxp4.Text);
-
-            if (textBoxp6.Text != "")
-                lnp3 = Convert.ToDouble(textBoxp6.Text);
+            lnp1 = (textBoxp2.Text != "") ? Convert.ToDouble(textBoxp2.Text) : 0;
+            lnp2 = (textBoxp4.Text != "") ? Convert.ToDouble(textBoxp4.Text) : 0;
+            lnp3 = (textBoxp6.Text != "") ? Convert.ToDouble(textBoxp6.Text) : 0;
 
 
             //obliczenia profili
@@ -783,8 +776,7 @@ namespace bramy
 
 
             price();
-            double cenac = 0;
-            double cenam = 0;
+
 
 
             if (robocizna.Text != "")
@@ -793,8 +785,8 @@ namespace bramy
                 rob = 0;
 
 
-            if (dodatki.Text != "")
-                dod = Double.Parse(dodatki.Text, NumberStyles.Currency);
+            if (dodatkicena.Text != "")
+                dod = Double.Parse(dodatkicena.Text, NumberStyles.Currency);
             else
                 dod = 0;
 
@@ -810,7 +802,7 @@ namespace bramy
             else
                 cpr1 = 0;
 
-
+            //malowanie
             if (checkBox2.Checked)
             {
                 if (cm.Text != "")
@@ -840,6 +832,7 @@ namespace bramy
                 // label31.Text = Convert.ToString(pow);
             }
 
+            //cynkowanie
             if (checkBox1.Checked)
             {
                 if (cc.Text != "")
@@ -875,7 +868,6 @@ namespace bramy
                     total = kosztm + kosztc + kpr + kpl + dod + cie + rob;
 
                     break;
-
 
                 case 2:
 
@@ -1113,8 +1105,8 @@ namespace bramy
 
                     if (robocizna.Text != "")
                         sw.WriteLine(string.Format("Robocizna - {0}", robocizna.Text));
-                    if (dodatki.Text != "")
-                        sw.WriteLine(string.Format("Dodatki (groty, wzory, itp.) - {0}", dodatki.Text));
+                    if (dodatkicena.Text != "")
+                        sw.WriteLine(string.Format("Dodatki (groty, wzory, itp.) - {0}", dodatkicena.Text));
                     if (ciecie.Text != "")
                         sw.WriteLine(string.Format("Cięcie plazmowe {0}",  ciecie.Text));
 
@@ -1124,7 +1116,6 @@ namespace bramy
                 }
             }
         }
-
         private void savedefault()
         {
             if (textBox9.Text == "")
@@ -1140,6 +1131,577 @@ namespace bramy
             File.WriteAllText(Path.Combine(Environment.CurrentDirectory, @"Data\", "default.txt"), createText);
         }
 
+        private void switchtab()
+        {
+
+            switch(currenttab)
+            {
+                case 1:
+                    przeslocomboboxindex[0] = (comboBox1.SelectedItem == null) ? null : Convert.ToString(comboBox1.SelectedItem);
+                    przeslocomboboxindex[1] = (comboBox2.SelectedItem == null) ? null : Convert.ToString(comboBox2.SelectedItem);
+                    przeslocomboboxindex[2] = (comboBox3.SelectedItem == null) ? null : Convert.ToString(comboBox3.SelectedItem);
+                    przeslocomboboxindex[3] = (comboBox4.SelectedItem == null) ? null : Convert.ToString(comboBox4.SelectedItem);
+                    przeslocomboboxindex[4] = (comboBox5.SelectedItem == null) ? null : Convert.ToString(comboBox5.SelectedItem);
+                    przeslocomboboxindex[5] = (comboBox6.SelectedItem == null) ? null : Convert.ToString(comboBox6.SelectedItem);
+                    przeslocomboboxindex[6] = (comboBox7.SelectedItem == null) ? null : Convert.ToString(comboBox7.SelectedItem);
+                    przeslocomboboxindex[7] = (comboBox8.SelectedItem == null) ? null : Convert.ToString(comboBox8.SelectedItem);
+                    przeslocomboboxindex[8] = (comboBox9.SelectedItem == null) ? null : Convert.ToString(comboBox9.SelectedItem);
+                    przeslocomboboxindex[9] = (comboBox10.SelectedItem == null) ? null : Convert.ToString(comboBox10.SelectedItem);
+                    przeslocomboboxindex[10] = (comboBox11.SelectedItem == null) ? null : Convert.ToString(comboBox11.SelectedItem);
+                    przeslocomboboxindex[11] = (comboBox12.SelectedItem == null) ? null : Convert.ToString(comboBox12.SelectedItem);
+                    przeslocomboboxindex[12] = (comboBoxp1.SelectedItem == null) ? null : Convert.ToString(comboBoxp1.SelectedItem);
+                    przeslocomboboxindex[13] = (comboBoxp2.SelectedItem == null) ? null : Convert.ToString(comboBoxp2.SelectedItem);
+                    przeslocomboboxindex[14] = (comboBoxp11.SelectedItem == null) ? null : Convert.ToString(comboBoxp11.SelectedItem);
+                    przeslocomboboxindex[15] = (comboBoxp21.SelectedItem == null) ? null : Convert.ToString(comboBoxp21.SelectedItem);
+                    przeslocomboboxindex[16] = (comboBoxp12.SelectedItem == null) ? null : Convert.ToString(comboBoxp12.SelectedItem);
+                    przeslocomboboxindex[17] = (comboBoxp22.SelectedItem == null) ? null : Convert.ToString(comboBoxp22.SelectedItem);
+
+                    przeslo[0] = textBox1.Text;
+                    przeslo[1] = textBox2.Text;
+                    przeslo[2] = textBox3.Text;
+                    przeslo[3] = textBox4.Text;
+                    przeslo[4] = textBox5.Text;
+                    przeslo[5] = textBox6.Text;
+                    przeslo[6] = textBox7.Text;
+                    przeslo[7] = textBox8.Text;
+                    przeslo[8] = textBoxp1.Text;
+                    przeslo[9] = textBoxp2.Text;
+                    przeslo[10] = textBoxp3.Text;
+                    przeslo[11] = textBoxp4.Text;
+                    przeslo[12] = textBoxp5.Text;
+                    przeslo[13] = textBoxp6.Text;
+                    przeslo[14] = lm.Text;
+                    przeslo[15] = km.Text;
+                    przeslo[16] = lc.Text;
+                    przeslo[17] = kc.Text;
+                    przeslo[18] = robocizna.Text;
+                    przeslo[19] = dodatkicena.Text;
+                    przeslo[20] = dodatkimasa.Text;
+                    przeslo[21] = dodatkipow.Text;
+                    przeslo[22] = ciecie.Text;
+                    przeslo[23] = zawias1.Text;
+                    przeslo[24] = zawias2.Text;
+                    przeslo[25] = cp44.Text;
+                    przeslo[26] = cpr88.Text;
+                    przeslo[27] = lp44.Text;
+                    przeslo[28] = lp88.Text;
+                    przeslo[29] = mp44.Text;
+                    przeslo[30] = kp44.Text;
+                    przeslo[31] = mp88.Text;
+                    przeslo[32] = kp88.Text;
+                    przeslo[33] = wozki.Text;
+                    przeslo[34] = kieszen.Text;
+                    przeslo[35] = masa1.Text;
+                    przeslo[36] = masa2.Text;
+                    przeslo[37] = masa3.Text;
+                    przeslo[38] = masa4.Text;
+                    przeslo[39] = masap1.Text;
+                    przeslo[40] = masap2.Text;
+                    przeslo[41] = masap3.Text;
+                    przeslo[42] = masab.Text;
+                    przeslo[43] = masan.Text;
+                    przeslo[44] = masabp.Text;
+                    przeslo[45] = masanp.Text;
+                    przeslo[46] = kosztpl.Text;
+                    przeslo[47] = kosztpr.Text;
+                    break;
+
+                case 2:
+                    furtkacomboboxindex[0] = (comboBox1.SelectedItem == null) ? null : Convert.ToString(comboBox1.SelectedItem);
+                    furtkacomboboxindex[1] = (comboBox2.SelectedItem == null) ? null : Convert.ToString(comboBox2.SelectedItem);
+                    furtkacomboboxindex[2] = (comboBox3.SelectedItem == null) ? null : Convert.ToString(comboBox3.SelectedItem);
+                    furtkacomboboxindex[3] = (comboBox4.SelectedItem == null) ? null : Convert.ToString(comboBox4.SelectedItem);
+                    furtkacomboboxindex[4] = (comboBox5.SelectedItem == null) ? null : Convert.ToString(comboBox5.SelectedItem);
+                    furtkacomboboxindex[5] = (comboBox6.SelectedItem == null) ? null : Convert.ToString(comboBox6.SelectedItem);
+                    furtkacomboboxindex[6] = (comboBox7.SelectedItem == null) ? null : Convert.ToString(comboBox7.SelectedItem);
+                    furtkacomboboxindex[7] = (comboBox8.SelectedItem == null) ? null : Convert.ToString(comboBox8.SelectedItem);
+                    furtkacomboboxindex[8] = (comboBox9.SelectedItem == null) ? null : Convert.ToString(comboBox9.SelectedItem);
+                    furtkacomboboxindex[9] = (comboBox10.SelectedItem == null) ? null : Convert.ToString(comboBox10.SelectedItem);
+                    furtkacomboboxindex[10] = (comboBox11.SelectedItem == null) ? null : Convert.ToString(comboBox11.SelectedItem);
+                    furtkacomboboxindex[11] = (comboBox12.SelectedItem == null) ? null : Convert.ToString(comboBox12.SelectedItem);
+                    furtkacomboboxindex[12] = (comboBoxp1.SelectedItem == null) ? null : Convert.ToString(comboBoxp1.SelectedItem);
+                    furtkacomboboxindex[13] = (comboBoxp2.SelectedItem == null) ? null : Convert.ToString(comboBoxp2.SelectedItem);
+                    furtkacomboboxindex[14] = (comboBoxp11.SelectedItem == null) ? null : Convert.ToString(comboBoxp11.SelectedItem);
+                    furtkacomboboxindex[15] = (comboBoxp21.SelectedItem == null) ? null : Convert.ToString(comboBoxp21.SelectedItem);
+                    furtkacomboboxindex[16] = (comboBoxp12.SelectedItem == null) ? null : Convert.ToString(comboBoxp12.SelectedItem);
+                    furtkacomboboxindex[17] = (comboBoxp22.SelectedItem == null) ? null : Convert.ToString(comboBoxp22.SelectedItem);
+
+
+                    furtka[0] = textBox1.Text;
+                    furtka[1] = textBox2.Text;
+                    furtka[2] = textBox3.Text;
+                    furtka[3] = textBox4.Text;
+                    furtka[4] = textBox5.Text;
+                    furtka[5] = textBox6.Text;
+                    furtka[6] = textBox7.Text;
+                    furtka[7] = textBox8.Text;
+                    furtka[8] = textBoxp1.Text;
+                    furtka[9] = textBoxp2.Text;
+                    furtka[10] = textBoxp3.Text;
+                    furtka[11] = textBoxp4.Text;
+                    furtka[12] = textBoxp5.Text;
+                    furtka[13] = textBoxp6.Text;
+                    furtka[14] = lm.Text;
+                    furtka[15] = km.Text;
+                    furtka[16] = lc.Text;
+                    furtka[17] = kc.Text;
+                    furtka[18] = robocizna.Text;
+                    furtka[19] = dodatkicena.Text;
+                    furtka[20] = dodatkimasa.Text;
+                    furtka[21] = dodatkipow.Text;
+                    furtka[22] = ciecie.Text;
+                    furtka[23] = zawias1.Text;
+                    furtka[24] = zawias2.Text;
+                    furtka[25] = cp44.Text;
+                    furtka[26] = cpr88.Text;
+                    furtka[27] = lp44.Text;
+                    furtka[28] = lp88.Text;
+                    furtka[29] = mp44.Text;
+                    furtka[30] = kp44.Text;
+                    furtka[31] = mp88.Text;
+                    furtka[32] = kp88.Text;
+                    furtka[33] = wozki.Text;
+                    furtka[34] = kieszen.Text;
+                    furtka[35] = masa1.Text;
+                    furtka[36] = masa2.Text;
+                    furtka[37] = masa3.Text;
+                    furtka[38] = masa4.Text;
+                    furtka[39] = masap1.Text;
+                    furtka[40] = masap2.Text;
+                    furtka[41] = masap3.Text;
+                    furtka[42] = masab.Text;
+                    furtka[43] = masan.Text;
+                    furtka[44] = masabp.Text;
+                    furtka[45] = masanp.Text;
+                    furtka[46] = kosztpl.Text;
+                    furtka[47] = kosztpr.Text;
+
+                    break;
+
+                case 3:
+                    bramaprzesuwnacomboboxindex[0] = (comboBox1.SelectedItem == null) ? null : Convert.ToString(comboBox1.SelectedItem);
+                    bramaprzesuwnacomboboxindex[1] = (comboBox2.SelectedItem == null) ? null : Convert.ToString(comboBox2.SelectedItem);
+                    bramaprzesuwnacomboboxindex[2] = (comboBox3.SelectedItem == null) ? null : Convert.ToString(comboBox3.SelectedItem);
+                    bramaprzesuwnacomboboxindex[3] = (comboBox4.SelectedItem == null) ? null : Convert.ToString(comboBox4.SelectedItem);
+                    bramaprzesuwnacomboboxindex[4] = (comboBox5.SelectedItem == null) ? null : Convert.ToString(comboBox5.SelectedItem);
+                    bramaprzesuwnacomboboxindex[5] = (comboBox6.SelectedItem == null) ? null : Convert.ToString(comboBox6.SelectedItem);
+                    bramaprzesuwnacomboboxindex[6] = (comboBox7.SelectedItem == null) ? null : Convert.ToString(comboBox7.SelectedItem);
+                    bramaprzesuwnacomboboxindex[7] = (comboBox8.SelectedItem == null) ? null : Convert.ToString(comboBox8.SelectedItem);
+                    bramaprzesuwnacomboboxindex[8] = (comboBox9.SelectedItem == null) ? null : Convert.ToString(comboBox9.SelectedItem);
+                    bramaprzesuwnacomboboxindex[9] = (comboBox10.SelectedItem == null) ? null : Convert.ToString(comboBox10.SelectedItem);
+                    bramaprzesuwnacomboboxindex[10] = (comboBox11.SelectedItem == null) ? null : Convert.ToString(comboBox11.SelectedItem);
+                    bramaprzesuwnacomboboxindex[11] = (comboBox12.SelectedItem == null) ? null : Convert.ToString(comboBox12.SelectedItem);
+                    bramaprzesuwnacomboboxindex[12] = (comboBoxp1.SelectedItem == null) ? null : Convert.ToString(comboBoxp1.SelectedItem);
+                    bramaprzesuwnacomboboxindex[13] = (comboBoxp2.SelectedItem == null) ? null : Convert.ToString(comboBoxp2.SelectedItem);
+                    bramaprzesuwnacomboboxindex[14] = (comboBoxp11.SelectedItem == null) ? null : Convert.ToString(comboBoxp11.SelectedItem);
+                    bramaprzesuwnacomboboxindex[15] = (comboBoxp21.SelectedItem == null) ? null : Convert.ToString(comboBoxp21.SelectedItem);
+                    bramaprzesuwnacomboboxindex[16] = (comboBoxp12.SelectedItem == null) ? null : Convert.ToString(comboBoxp12.SelectedItem);
+                    bramaprzesuwnacomboboxindex[17] = (comboBoxp22.SelectedItem == null) ? null : Convert.ToString(comboBoxp22.SelectedItem);
+                    bramaprzesuwna[0] = textBox1.Text;
+                    bramaprzesuwna[1] = textBox2.Text;
+                    bramaprzesuwna[2] = textBox3.Text;
+                    bramaprzesuwna[3] = textBox4.Text;
+                    bramaprzesuwna[4] = textBox5.Text;
+                    bramaprzesuwna[5] = textBox6.Text;
+                    bramaprzesuwna[6] = textBox7.Text;
+                    bramaprzesuwna[7] = textBox8.Text;
+                    bramaprzesuwna[8] = textBoxp1.Text;
+                    bramaprzesuwna[9] = textBoxp2.Text;
+                    bramaprzesuwna[10] = textBoxp3.Text;
+                    bramaprzesuwna[11] = textBoxp4.Text;
+                    bramaprzesuwna[12] = textBoxp5.Text;
+                    bramaprzesuwna[13] = textBoxp6.Text;
+                    bramaprzesuwna[14] = lm.Text;
+                    bramaprzesuwna[15] = km.Text;
+                    bramaprzesuwna[16] = lc.Text;
+                    bramaprzesuwna[17] = kc.Text;
+                    bramaprzesuwna[18] = robocizna.Text;
+                    bramaprzesuwna[19] = dodatkicena.Text;
+                    bramaprzesuwna[20] = dodatkimasa.Text;
+                    bramaprzesuwna[21] = dodatkipow.Text;
+                    bramaprzesuwna[22] = ciecie.Text;
+                    bramaprzesuwna[23] = zawias1.Text;
+                    bramaprzesuwna[24] = zawias2.Text;
+                    bramaprzesuwna[25] = cp44.Text;
+                    bramaprzesuwna[26] = cpr88.Text;
+                    bramaprzesuwna[27] = lp44.Text;
+                    bramaprzesuwna[28] = lp88.Text;
+                    bramaprzesuwna[29] = mp44.Text;
+                    bramaprzesuwna[30] = kp44.Text;
+                    bramaprzesuwna[31] = mp88.Text;
+                    bramaprzesuwna[32] = kp88.Text;
+                    bramaprzesuwna[33] = wozki.Text;
+                    bramaprzesuwna[34] = kieszen.Text;
+                    bramaprzesuwna[35] = masa1.Text;
+                    bramaprzesuwna[36] = masa2.Text;
+                    bramaprzesuwna[37] = masa3.Text;
+                    bramaprzesuwna[38] = masa4.Text;
+                    bramaprzesuwna[39] = masap1.Text;
+                    bramaprzesuwna[40] = masap2.Text;
+                    bramaprzesuwna[41] = masap3.Text;
+                    bramaprzesuwna[42] = masab.Text;
+                    bramaprzesuwna[43] = masan.Text;
+                    bramaprzesuwna[44] = masabp.Text;
+                    bramaprzesuwna[45] = masanp.Text;
+                    bramaprzesuwna[46] = kosztpl.Text;
+                    bramaprzesuwna[47] = kosztpr.Text;
+                    break;
+
+                case 4:
+                    bramaskrzydlowacomboboxindex[0] = (comboBox1.SelectedItem == null) ? null : Convert.ToString(comboBox1.SelectedItem);
+                    bramaskrzydlowacomboboxindex[1] = (comboBox2.SelectedItem == null) ? null : Convert.ToString(comboBox2.SelectedItem);
+                    bramaskrzydlowacomboboxindex[2] = (comboBox3.SelectedItem == null) ? null : Convert.ToString(comboBox3.SelectedItem);
+                    bramaskrzydlowacomboboxindex[3] = (comboBox4.SelectedItem == null) ? null : Convert.ToString(comboBox4.SelectedItem);
+                    bramaskrzydlowacomboboxindex[4] = (comboBox5.SelectedItem == null) ? null : Convert.ToString(comboBox5.SelectedItem);
+                    bramaskrzydlowacomboboxindex[5] = (comboBox6.SelectedItem == null) ? null : Convert.ToString(comboBox6.SelectedItem);
+                    bramaskrzydlowacomboboxindex[6] = (comboBox7.SelectedItem == null) ? null : Convert.ToString(comboBox7.SelectedItem);
+                    bramaskrzydlowacomboboxindex[7] = (comboBox8.SelectedItem == null) ? null : Convert.ToString(comboBox8.SelectedItem);
+                    bramaskrzydlowacomboboxindex[8] = (comboBox9.SelectedItem == null) ? null : Convert.ToString(comboBox9.SelectedItem);
+                    bramaskrzydlowacomboboxindex[9] = (comboBox10.SelectedItem == null) ? null : Convert.ToString(comboBox10.SelectedItem);
+                    bramaskrzydlowacomboboxindex[10] = (comboBox11.SelectedItem == null) ? null : Convert.ToString(comboBox11.SelectedItem);
+                    bramaskrzydlowacomboboxindex[11] = (comboBox12.SelectedItem == null) ? null : Convert.ToString(comboBox12.SelectedItem);
+                    bramaskrzydlowacomboboxindex[12] = (comboBoxp1.SelectedItem == null) ? null : Convert.ToString(comboBoxp1.SelectedItem);
+                    bramaskrzydlowacomboboxindex[13] = (comboBoxp2.SelectedItem == null) ? null : Convert.ToString(comboBoxp2.SelectedItem);
+                    bramaskrzydlowacomboboxindex[14] = (comboBoxp11.SelectedItem == null) ? null : Convert.ToString(comboBoxp11.SelectedItem);
+                    bramaskrzydlowacomboboxindex[15] = (comboBoxp21.SelectedItem == null) ? null : Convert.ToString(comboBoxp21.SelectedItem);
+                    bramaskrzydlowacomboboxindex[16] = (comboBoxp12.SelectedItem == null) ? null : Convert.ToString(comboBoxp12.SelectedItem);
+                    bramaskrzydlowacomboboxindex[17] = (comboBoxp22.SelectedItem == null) ? null : Convert.ToString(comboBoxp22.SelectedItem);
+
+                    bramaskrzydlowa[0] = textBox1.Text;
+                    bramaskrzydlowa[1] = textBox2.Text;
+                    bramaskrzydlowa[2] = textBox3.Text;
+                    bramaskrzydlowa[3] = textBox4.Text;
+                    bramaskrzydlowa[4] = textBox5.Text;
+                    bramaskrzydlowa[5] = textBox6.Text;
+                    bramaskrzydlowa[6] = textBox7.Text;
+                    bramaskrzydlowa[7] = textBox8.Text;
+                    bramaskrzydlowa[8] = textBoxp1.Text;
+                    bramaskrzydlowa[9] = textBoxp2.Text;
+                    bramaskrzydlowa[10] = textBoxp3.Text;
+                    bramaskrzydlowa[11] = textBoxp4.Text;
+                    bramaskrzydlowa[12] = textBoxp5.Text;
+                    bramaskrzydlowa[13] = textBoxp6.Text;
+                    bramaskrzydlowa[14] = lm.Text;
+                    bramaskrzydlowa[15] = km.Text;
+                    bramaskrzydlowa[16] = lc.Text;
+                    bramaskrzydlowa[17] = kc.Text;
+                    bramaskrzydlowa[18] = robocizna.Text;
+                    bramaskrzydlowa[19] = dodatkicena.Text;
+                    bramaskrzydlowa[20] = dodatkimasa.Text;
+                    bramaskrzydlowa[21] = dodatkipow.Text;
+                    bramaskrzydlowa[22] = ciecie.Text;
+                    bramaskrzydlowa[23] = zawias1.Text;
+                    bramaskrzydlowa[24] = zawias2.Text;
+                    bramaskrzydlowa[25] = cp44.Text;
+                    bramaskrzydlowa[26] = cpr88.Text;
+                    bramaskrzydlowa[27] = lp44.Text;
+                    bramaskrzydlowa[28] = lp88.Text;
+                    bramaskrzydlowa[29] = mp44.Text;
+                    bramaskrzydlowa[30] = kp44.Text;
+                    bramaskrzydlowa[31] = mp88.Text;
+                    bramaskrzydlowa[32] = kp88.Text;
+                    bramaskrzydlowa[33] = wozki.Text;
+                    bramaskrzydlowa[34] = kieszen.Text;
+                    bramaskrzydlowa[35] = masa1.Text;
+                    bramaskrzydlowa[36] = masa2.Text;
+                    bramaskrzydlowa[37] = masa3.Text;
+                    bramaskrzydlowa[38] = masa4.Text;
+                    bramaskrzydlowa[39] = masap1.Text;
+                    bramaskrzydlowa[40] = masap2.Text;
+                    bramaskrzydlowa[41] = masap3.Text;
+                    bramaskrzydlowa[42] = masab.Text;
+                    bramaskrzydlowa[43] = masan.Text;
+                    bramaskrzydlowa[44] = masabp.Text;
+                    bramaskrzydlowa[45] = masanp.Text;
+                    bramaskrzydlowa[46] = kosztpl.Text;
+                    bramaskrzydlowa[47] = kosztpr.Text;
+                    break;
+            }
+
+            switch (tab)
+            {
+                case 1:
+                    comboBox1.SelectedItem = przeslocomboboxindex[0];
+                    comboBox2.SelectedItem = przeslocomboboxindex[1];
+                    comboBox3.SelectedItem = przeslocomboboxindex[2];
+                    comboBox4.SelectedItem = przeslocomboboxindex[3];
+                    comboBox5.SelectedItem = przeslocomboboxindex[4];
+                    comboBox6.SelectedItem = przeslocomboboxindex[5];
+                    comboBox7.SelectedItem = przeslocomboboxindex[6];
+                    comboBox8.SelectedItem = przeslocomboboxindex[7];
+                    comboBox9.SelectedItem = przeslocomboboxindex[8];
+                    comboBox10.SelectedItem = przeslocomboboxindex[9];
+                    comboBox11.SelectedItem = przeslocomboboxindex[10];
+                    comboBox12.SelectedItem = przeslocomboboxindex[11];
+                    comboBoxp1.SelectedItem = przeslocomboboxindex[12];
+                    comboBoxp2.SelectedItem = przeslocomboboxindex[13];
+                    comboBoxp11.SelectedItem = przeslocomboboxindex[14];
+                    comboBoxp21.SelectedItem = przeslocomboboxindex[15];
+                    comboBoxp12.SelectedItem = przeslocomboboxindex[16];
+                    comboBoxp22.SelectedItem = przeslocomboboxindex[17];
+                    textBox1.Text = przeslo[0];
+                    textBox2.Text = przeslo[1];
+                    textBox3.Text = przeslo[2];
+                    textBox4.Text = przeslo[3];
+                    textBox5.Text = przeslo[4];
+                    textBox6.Text = przeslo[5];
+                    textBox7.Text = przeslo[6];
+                    textBox8.Text = przeslo[7];
+                    textBoxp1.Text = przeslo[8];
+                    textBoxp2.Text = przeslo[9];
+                    textBoxp3.Text = przeslo[10];
+                    textBoxp4.Text = przeslo[11];
+                    textBoxp5.Text = przeslo[12];
+                    textBoxp6.Text = przeslo[13];
+                    lm.Text = przeslo[14];
+                    km.Text = przeslo[15];
+                    lc.Text = przeslo[16];
+                    kc.Text = przeslo[17];
+                    robocizna.Text = przeslo[18];
+                    dodatkicena.Text = przeslo[19];
+                    dodatkimasa.Text = przeslo[20];
+                    dodatkipow.Text = przeslo[21];
+                    ciecie.Text = przeslo[22];
+                    zawias1.Text = przeslo[23];
+                    zawias2.Text = przeslo[24];
+                    cp44.Text = przeslo[25];
+                    cpr88.Text = przeslo[26];
+                    lp44.Text = przeslo[27];
+                    lp88.Text = przeslo[28];
+                    mp44.Text = przeslo[29];
+                    kp44.Text = przeslo[30];
+                    mp88.Text = przeslo[31];
+                    kp88.Text = przeslo[32];
+                    wozki.Text = przeslo[33];
+                    kieszen.Text = przeslo[34];
+                    masa1.Text = przeslo[35];
+                    masa2.Text = przeslo[36];
+                    masa3.Text = przeslo[37];
+                    masa4.Text = przeslo[38];
+                    masap1.Text = przeslo[39];
+                    masap2.Text = przeslo[40];
+                    masap3.Text = przeslo[41];
+                    masab.Text = przeslo[42];
+                    masan.Text = przeslo[43];
+                    masabp.Text = przeslo[44];
+                    masanp.Text = przeslo[45];
+                    kosztpl.Text = przeslo[46];
+                    kosztpr.Text = przeslo[47];
+                    break;
+
+                case 2:
+                    comboBox1.SelectedItem = furtkacomboboxindex[0];
+                    comboBox2.SelectedItem = furtkacomboboxindex[1];
+                    comboBox3.SelectedItem = furtkacomboboxindex[2];
+                    comboBox4.SelectedItem = furtkacomboboxindex[3];
+                    comboBox5.SelectedItem = furtkacomboboxindex[4];
+                    comboBox6.SelectedItem = furtkacomboboxindex[5];
+                    comboBox7.SelectedItem = furtkacomboboxindex[6];
+                    comboBox8.SelectedItem = furtkacomboboxindex[7];
+                    comboBox9.SelectedItem = furtkacomboboxindex[8];
+                    comboBox10.SelectedItem = furtkacomboboxindex[9];
+                    comboBox11.SelectedItem = furtkacomboboxindex[10];
+                    comboBox12.SelectedItem = furtkacomboboxindex[11];
+                    comboBoxp1.SelectedItem = furtkacomboboxindex[12];
+                    comboBoxp2.SelectedItem = furtkacomboboxindex[13];
+                    comboBoxp11.SelectedItem = furtkacomboboxindex[14];
+                    comboBoxp21.SelectedItem = furtkacomboboxindex[15];
+                    comboBoxp12.SelectedItem = furtkacomboboxindex[16];
+                    comboBoxp22.SelectedItem = furtkacomboboxindex[17];
+                    textBox1.Text = furtka[0];
+                    textBox2.Text = furtka[1];
+                    textBox3.Text = furtka[2];
+                    textBox4.Text = furtka[3];
+                    textBox5.Text = furtka[4];
+                    textBox6.Text = furtka[5];
+                    textBox7.Text = furtka[6];
+                    textBox8.Text = furtka[7];
+                    textBoxp1.Text = furtka[8];
+                    textBoxp2.Text = furtka[9];
+                    textBoxp3.Text = furtka[10];
+                    textBoxp4.Text = furtka[11];
+                    textBoxp5.Text = furtka[12];
+                    textBoxp6.Text = furtka[13];
+                    lm.Text = furtka[14];
+                    km.Text = furtka[15];
+                    lc.Text = furtka[16];
+                    kc.Text = furtka[17];
+                    robocizna.Text = furtka[18];
+                    dodatkicena.Text = furtka[19];
+                    dodatkimasa.Text = furtka[20];
+                    dodatkipow.Text = furtka[21];
+                    ciecie.Text = furtka[22];
+                    zawias1.Text = furtka[23];
+                    zawias2.Text = furtka[24];
+                    cp44.Text = furtka[25];
+                    cpr88.Text = furtka[26];
+                    lp44.Text = furtka[27];
+                    lp88.Text = furtka[28];
+                    mp44.Text = furtka[29];
+                    kp44.Text = furtka[30];
+                    mp88.Text = furtka[31];
+                    kp88.Text = furtka[32];
+                    wozki.Text = furtka[33];
+                    kieszen.Text = furtka[34];
+                    masa1.Text = furtka[35];
+                    masa2.Text = furtka[36];
+                    masa3.Text = furtka[37];
+                    masa4.Text = furtka[38];
+                    masap1.Text = furtka[39];
+                    masap2.Text = furtka[40];
+                    masap3.Text = furtka[41];
+                    masab.Text = furtka[42];
+                    masan.Text = furtka[43];
+                    masabp.Text = furtka[44];
+                    masanp.Text = furtka[45];
+                    kosztpl.Text = furtka[46];
+                    kosztpr.Text = furtka[47];
+                    break;
+
+                case 3:
+                    comboBox1.SelectedItem = bramaprzesuwnacomboboxindex[0];
+                    comboBox2.SelectedItem = bramaprzesuwnacomboboxindex[1];
+                    comboBox3.SelectedItem = bramaprzesuwnacomboboxindex[2];
+                    comboBox4.SelectedItem = bramaprzesuwnacomboboxindex[3];
+                    comboBox5.SelectedItem = bramaprzesuwnacomboboxindex[4];
+                    comboBox6.SelectedItem = bramaprzesuwnacomboboxindex[5];
+                    comboBox7.SelectedItem = bramaprzesuwnacomboboxindex[6];
+                    comboBox8.SelectedItem = bramaprzesuwnacomboboxindex[7];
+                    comboBox9.SelectedItem = bramaprzesuwnacomboboxindex[8];
+                    comboBox10.SelectedItem = bramaprzesuwnacomboboxindex[9];
+                    comboBox11.SelectedItem = bramaprzesuwnacomboboxindex[10];
+                    comboBox12.SelectedItem = bramaprzesuwnacomboboxindex[11];
+                    comboBoxp1.SelectedItem = bramaprzesuwnacomboboxindex[12];
+                    comboBoxp2.SelectedItem = bramaprzesuwnacomboboxindex[13];
+                    comboBoxp11.SelectedItem = bramaprzesuwnacomboboxindex[14];
+                    comboBoxp21.SelectedItem = bramaprzesuwnacomboboxindex[15];
+                    comboBoxp12.SelectedItem = bramaprzesuwnacomboboxindex[16];
+                    comboBoxp22.SelectedItem = bramaprzesuwnacomboboxindex[17];
+
+                    textBox1.Text = bramaprzesuwna[0];
+                    textBox2.Text = bramaprzesuwna[1];
+                    textBox3.Text = bramaprzesuwna[2];
+                    textBox4.Text = bramaprzesuwna[3];
+                    textBox5.Text = bramaprzesuwna[4];
+                    textBox6.Text = bramaprzesuwna[5];
+                    textBox7.Text = bramaprzesuwna[6];
+                    textBox8.Text = bramaprzesuwna[7];
+                    textBoxp1.Text = bramaprzesuwna[8];
+                    textBoxp2.Text = bramaprzesuwna[9];
+                    textBoxp3.Text = bramaprzesuwna[10];
+                    textBoxp4.Text = bramaprzesuwna[11];
+                    textBoxp5.Text = bramaprzesuwna[12];
+                    textBoxp6.Text = bramaprzesuwna[13];
+                    lm.Text = bramaprzesuwna[14];
+                    km.Text = bramaprzesuwna[15];
+                    lc.Text = bramaprzesuwna[16];
+                    kc.Text = bramaprzesuwna[17];
+                    robocizna.Text = bramaprzesuwna[18];
+                    dodatkicena.Text = bramaprzesuwna[19];
+                    dodatkimasa.Text = bramaprzesuwna[20];
+                    dodatkipow.Text = bramaprzesuwna[21];
+                    ciecie.Text = bramaprzesuwna[22];
+                    zawias1.Text = bramaprzesuwna[23];
+                    zawias2.Text = bramaprzesuwna[24];
+                    cp44.Text = bramaprzesuwna[25];
+                    cpr88.Text = bramaprzesuwna[26];
+                    lp44.Text = bramaprzesuwna[27];
+                    lp88.Text = bramaprzesuwna[28];
+                    mp44.Text = bramaprzesuwna[29];
+                    kp44.Text = bramaprzesuwna[30];
+                    mp88.Text = bramaprzesuwna[31];
+                    kp88.Text = bramaprzesuwna[32];
+                    wozki.Text = bramaprzesuwna[33];
+                    kieszen.Text = bramaprzesuwna[34];
+                    masa1.Text = bramaprzesuwna[35];
+                    masa2.Text = bramaprzesuwna[36];
+                    masa3.Text = bramaprzesuwna[37];
+                    masa4.Text = bramaprzesuwna[38];
+                    masap1.Text = bramaprzesuwna[39];
+                    masap2.Text = bramaprzesuwna[40];
+                    masap3.Text = bramaprzesuwna[41];
+                    masab.Text = bramaprzesuwna[42];
+                    masan.Text = bramaprzesuwna[43];
+                    masabp.Text = bramaprzesuwna[44];
+                    masanp.Text = bramaprzesuwna[45];
+                    kosztpl.Text = bramaprzesuwna[46];
+                    kosztpr.Text = bramaprzesuwna[47];
+
+                    break;
+
+                case 4:
+                    comboBox1.SelectedItem = bramaskrzydlowacomboboxindex[0];
+                    comboBox2.SelectedItem = bramaskrzydlowacomboboxindex[1];
+                    comboBox3.SelectedItem = bramaskrzydlowacomboboxindex[2];
+                    comboBox4.SelectedItem = bramaskrzydlowacomboboxindex[3];
+                    comboBox5.SelectedItem = bramaskrzydlowacomboboxindex[4];
+                    comboBox6.SelectedItem = bramaskrzydlowacomboboxindex[5];
+                    comboBox7.SelectedItem = bramaskrzydlowacomboboxindex[6];
+                    comboBox8.SelectedItem = bramaskrzydlowacomboboxindex[7];
+                    comboBox9.SelectedItem = bramaskrzydlowacomboboxindex[8];
+                    comboBox10.SelectedItem = bramaskrzydlowacomboboxindex[9];
+                    comboBox11.SelectedItem = bramaskrzydlowacomboboxindex[10];
+                    comboBox12.SelectedItem = bramaskrzydlowacomboboxindex[11];
+                    comboBoxp1.SelectedItem = bramaskrzydlowacomboboxindex[12];
+                    comboBoxp2.SelectedItem = bramaskrzydlowacomboboxindex[13];
+                    comboBoxp11.SelectedItem = bramaskrzydlowacomboboxindex[14];
+                    comboBoxp21.SelectedItem = bramaskrzydlowacomboboxindex[15];
+                    comboBoxp12.SelectedItem = bramaskrzydlowacomboboxindex[16];
+                    comboBoxp22.SelectedItem = bramaskrzydlowacomboboxindex[17];
+
+                    textBox1.Text = bramaskrzydlowa[0];
+                    textBox2.Text = bramaskrzydlowa[1];
+                    textBox3.Text = bramaskrzydlowa[2];
+                    textBox4.Text = bramaskrzydlowa[3];
+                    textBox5.Text = bramaskrzydlowa[4];
+                    textBox6.Text = bramaskrzydlowa[5];
+                    textBox7.Text = bramaskrzydlowa[6];
+                    textBox8.Text = bramaskrzydlowa[7];
+                    textBoxp1.Text = bramaskrzydlowa[8];
+                    textBoxp2.Text = bramaskrzydlowa[9];
+                    textBoxp3.Text = bramaskrzydlowa[10];
+                    textBoxp4.Text = bramaskrzydlowa[11];
+                    textBoxp5.Text = bramaskrzydlowa[12];
+                    textBoxp6.Text = bramaskrzydlowa[13];
+                    lm.Text = bramaskrzydlowa[14];
+                    km.Text = bramaskrzydlowa[15];
+                    lc.Text = bramaskrzydlowa[16];
+                    kc.Text = bramaskrzydlowa[17];
+                    robocizna.Text = bramaskrzydlowa[18];
+                    dodatkicena.Text = bramaskrzydlowa[19];
+                    dodatkimasa.Text = bramaskrzydlowa[20];
+                    dodatkipow.Text = bramaskrzydlowa[21];
+                    ciecie.Text = bramaskrzydlowa[22];
+                    zawias1.Text = bramaskrzydlowa[23];
+                    zawias2.Text = bramaskrzydlowa[24];
+                    cp44.Text = bramaskrzydlowa[25];
+                    cpr88.Text = bramaskrzydlowa[26];
+                    lp44.Text = bramaskrzydlowa[27];
+                    lp88.Text = bramaskrzydlowa[28];
+                    mp44.Text = bramaskrzydlowa[29];
+                    kp44.Text = bramaskrzydlowa[30];
+                    mp88.Text = bramaskrzydlowa[31];
+                    kp88.Text = bramaskrzydlowa[32];
+                    wozki.Text = bramaskrzydlowa[33];
+                    kieszen.Text = bramaskrzydlowa[34];
+                    masa1.Text = bramaskrzydlowa[35];
+                    masa2.Text = bramaskrzydlowa[36];
+                    masa3.Text = bramaskrzydlowa[37];
+                    masa4.Text = bramaskrzydlowa[38];
+                    masap1.Text = bramaskrzydlowa[39];
+                    masap2.Text = bramaskrzydlowa[40];
+                    masap3.Text = bramaskrzydlowa[41];
+                    masab.Text = bramaskrzydlowa[42];
+                    masan.Text = bramaskrzydlowa[43];
+                    masabp.Text = bramaskrzydlowa[44];
+                    masanp.Text = bramaskrzydlowa[45];
+                    kosztpl.Text = bramaskrzydlowa[46];
+                    kosztpr.Text = bramaskrzydlowa[47];
+                    break;
+
+
+            }
+        }
         private void fill1()
         {
             bool set = false; 
@@ -1415,7 +1977,9 @@ namespace bramy
         private void button2_Click(object sender, EventArgs e)
         {
             //przeslo
+            currenttab = tab;
             tab = 1;
+
 
             btnp.Enabled = false;
             btnf.Enabled = true;
@@ -1428,7 +1992,9 @@ namespace bramy
             panelzz.Visible = false;
 
 
-            clear();
+
+            switchtab();
+
             update();
         }
 
@@ -1436,6 +2002,7 @@ namespace bramy
         {
 
             //furtka
+            currenttab = tab;
             tab = 2;
 
             btnp.Enabled = true;
@@ -1450,13 +2017,17 @@ namespace bramy
             panelwozki.Visible = false;
             panelzz.Visible = false;
 
-            clear();
+
+
+                switchtab();
+
             update();
         }
 
         private void btnb_Click(object sender, EventArgs e)
         {
             //brama
+            currenttab = tab;
             tab = 3;
 
             btnp.Enabled = true;
@@ -1475,7 +2046,9 @@ namespace bramy
             panelzz.Visible = false;
 
 
-            clear();
+
+                switchtab();
+
             update();
 
 
@@ -1486,6 +2059,7 @@ namespace bramy
         private void btnbp_Click(object sender, EventArgs e)
         {
             //przesuwna
+            currenttab = tab;
             tab = 3;
 
             btnbp.Enabled = false;
@@ -1496,13 +2070,16 @@ namespace bramy
             panelwozki.Visible = true;
             panelzz.Visible = false;
 
-            clear();
+
+                switchtab();
+
             update();
         }
 
         private void btnbs_Click(object sender, EventArgs e)
         {
             //skrydlowa
+            currenttab = tab;
             tab = 4;
 
             btnbs.Enabled = false;
@@ -1514,8 +2091,15 @@ namespace bramy
             panelwozki.Visible = false;
             panelzz.Visible = true;
 
-            clear();
+
+                switchtab();
+
             update();
+        }
+
+        private void btnclear_Click(object sender, EventArgs e)
+        {
+            clear();
         }
 
         private void btnsave_Click(object sender, EventArgs e)
