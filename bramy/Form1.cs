@@ -43,6 +43,7 @@ namespace bramy
         double p1 = 0, p2 = 0, p3 = 0, p4 = 0;
         double pp1 = 0, pp2 = 0, pp3 = 0;
         double total, rob, dod, cie;
+        double dodmasa = 0, dodpow = 0;
         double cpr1, cpr2, cpr3, cpr4, cpl1, cpl2, cpl3;
         double woz, kie;
         double k44, k88;
@@ -147,6 +148,8 @@ namespace bramy
             cenapl1.TextChanged += removenans;
             cenapl2.TextChanged += removenans;
             cenapl3.TextChanged += removenans;
+            dodatkimasa.TextChanged += removenans;
+            dodatkipow.TextChanged += removenans;
 
             //walutowe
             textBoxp9.Leave += currency;
@@ -302,6 +305,7 @@ namespace bramy
                 }
             }
             left = false;
+            //MessageBox.Show(Convert.ToString(m88));
         }
         private void currency(object sender, EventArgs e)
         {
@@ -802,6 +806,16 @@ namespace bramy
             else
                 cpr1 = 0;
 
+            if (dodatkimasa.Text != "")
+                dodmasa = Double.Parse(dodatkimasa.Text, NumberStyles.Currency);
+            else
+                dodmasa = 0;
+
+            if (dodatkipow.Text != "")
+                dodpow = Double.Parse(dodatkipow.Text, NumberStyles.Currency);
+            else
+                dodpow = 0;
+
             //malowanie
             if (checkBox2.Checked)
             {
@@ -811,25 +825,31 @@ namespace bramy
                 }
 
                 if (lp44.Text != "")
-                {
                     d44 = Convert.ToDouble(lp44.Text);
-                    pow44 = d44 * 240;
-                }
                 else
                     d44 = 0;
 
                 if (lp88.Text != "")
-                {
                     d88 = Convert.ToDouble(lp88.Text);
-                    pow88 = d88 * 240;
-                }
                 else
                     d88 = 0;
 
-                kosztm = cenam * (pow + powp + pow44 + pow88) / 1000;
-                lm.Text = Convert.ToString((pow + powp + pow44 + pow88) / 1000);
+
+                pow44 = d44 * 240;
+                pow88 = d88 * 240;
+                kosztm = cenam * (pow + powp + pow44 + pow88 + dodpow * 1000) / 1000;
+                lm.Text = Convert.ToString((pow + powp + pow44 + pow88 + dodpow * 1000) / 1000);
                 km.Text = string.Format("{0:c}", kosztm);
                 // label31.Text = Convert.ToString(pow);
+            }
+            else
+            {
+                lm.Text = "0";
+                km.Text = "0";
+                pow44 = 0;
+                pow88 = 0;
+                kosztm = 0;
+
             }
 
             //cynkowanie
@@ -855,9 +875,17 @@ namespace bramy
                 m44 = masap44 * d44;
                 m88 = masap88 * d88;
 
-                kosztc = cenac * (mn + mnp + m44 + m88);
-                lc.Text = Convert.ToString(mn + mnp + m44 + m88);
+                kosztc = cenac * (mn + mnp + m44 + m88 + dodmasa);
+                lc.Text = Convert.ToString(mn + mnp + m44 + m88 + dodmasa);
                 kc.Text = string.Format("{0:c}", kosztc);
+            }
+            else
+            {
+                lc.Text = "0";
+                kc.Text = "0";
+                m44 = 0;
+                m88 = 0;
+                kosztc = 0;
             }
 
 
@@ -1699,8 +1727,9 @@ namespace bramy
                     kosztpr.Text = bramaskrzydlowa[47];
                     break;
 
-
+                    
             }
+            update();
         }
         private void fill1()
         {
@@ -2102,6 +2131,21 @@ namespace bramy
             clear();
         }
 
+        private void label75_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lp44_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dodatkimasa_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnsave_Click(object sender, EventArgs e)
         {
             save();
@@ -2357,7 +2401,6 @@ namespace bramy
             }
             update();
         }
-
 
     }
 }
