@@ -94,10 +94,63 @@ namespace bramy
         double lnp2 = 0;
         double lnp3 = 0;
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var cp = base.CreateParams;
+                cp.Style |= 0x840000;  // Turn on WS_BORDER + WS_THICKFRAME
+                return cp;
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if(this.Width<1470)
+            {
+                this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            }
+            else
+            {
+                this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            }
+            panel3.Width = this.Width;
+            btnp.Width = this.Width - (2 * this.Width / 3);
+            btnf.Width = this.Width - (2 * this.Width / 3);
+            btnf.Location = new Point(btnp.Width, 0);
+            btnb.Width = this.Width - (2 * this.Width / 3);
+            btnb.Location = new Point(btnp.Width + btnf.Width, 0);
+
+            panel1.Width = this.Width / 2;
+            //btnkoszt.Location = new Point()
+
+            panel7.Width = this.Width / 2;
+            panel6.Width = this.Width / 4;
+            panel5.Width = this.Width / 4;
+            panel5.Location = new Point(this.Width / 4, panel5.Location.Y);
+
+
+            panel2.Width = this.Width / 2;
+            panel4.Width = this.Width / 2;
+            panel8.Width = this.Width / 2;
+
+            panel8.Location = new Point(this.Width / 2, panel8.Location.Y);
+            panel9.Width = this.Width / 2;
+            panel9.Location = new Point(this.Width / 2, panel9.Location.Y);
+            panel10.Width = this.Width / 2;
+            panel10.Location = new Point(this.Width / 2, panel10.Location.Y);
+            panel11.Width = this.Width / 2;
+            panel11.Location = new Point(this.Width / 2, panel11.Location.Y);
+            panel12.Width = this.Width / 2;
+            panel12.Location = new Point(this.Width / 2, panel12.Location.Y);
+        }
         public Form1()
         {
 
             InitializeComponent();
+
+
+            
 
             textBox9.Text = linesdefault[0];
             textBoxp9.Text = linesdefault[1];
@@ -2137,6 +2190,16 @@ namespace bramy
         }
 
         private void lp44_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
         }
