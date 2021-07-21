@@ -94,6 +94,7 @@ namespace bramy
         double lnp2 = 0;
         double lnp3 = 0;
 
+        int exp = 0;
         protected override CreateParams CreateParams
         {
             get
@@ -106,14 +107,57 @@ namespace bramy
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            if(this.Width<1470)
-            {
-                this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            }
-            else
+            lblsize.Text = this.Width.ToString();
+            lblbox.Text = this.textBox1.Width.ToString();
+            if (this.Width >= 1470)
             {
                 this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+                this.MinimumSize = new System.Drawing.Size(1150, 0);
+                exp = ((this.Width - 1150) / 12);
             }
+            //if(this.Width >= 1290)
+            //{
+            //    this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            //}
+            else
+            {
+                this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+                this.MinimumSize = new System.Drawing.Size(1150, 0);
+                exp = ((this.Width - 1150) / 8);
+            }
+            comboBox1.Width = 50;
+            comboBox2.Width = 50;
+            comboBox3.Width = 50;
+            comboBox4.Width = 50;
+            comboBox6.Width = 50; 
+            comboBox7.Width = 50; 
+            comboBox8.Width = 50; 
+            comboBox9.Width = 50; 
+            comboBox10.Width = 50; 
+            comboBox11.Width = 50; 
+            comboBox12.Width = 50; 
+            comboBoxp1.Width = 50;
+            comboBoxp2.Width = 50; 
+            comboBoxp11.Width = 50;
+            comboBoxp21.Width = 50; 
+            comboBoxp12.Width = 50;
+            comboBoxp22.Width = 50;
+
+            masa1.Width = 79 + exp; // 1470-100 1150-79
+            textBox1.Location = new Point(masa1.Location.X + 96 + exp, textBox1.Location.Y);
+            textBox1.Width = 79 + exp;
+            textBox2.Location = new Point(textBox1.Location.X + 96 + exp, textBox1.Location.Y);
+            textBox2.Width = 79 + exp;
+            panelcena.Location = new Point(textBox2.Location.X + 96 + exp, 0);
+            panelcena.Width = 90 + exp;
+            cenap1.Width = 79 + exp;
+
+            btnkoszt.Location = new Point(panelcena.Location.X, radioButton1.Location.Y);
+            btnkoszt.Width = cenap1.Width / 2;
+            btncena.Location = new Point(panelcena.Location.X + btnkoszt.Width, radioButton1.Location.Y);
+            btncena.Width = btnkoszt.Width;
+
+
             panel3.Width = this.Width;
             btnp.Width = this.Width - (2 * this.Width / 3);
             btnf.Width = this.Width - (2 * this.Width / 3);
@@ -121,16 +165,15 @@ namespace bramy
             btnb.Width = this.Width - (2 * this.Width / 3);
             btnb.Location = new Point(btnp.Width + btnf.Width, 0);
 
-            panel1.Width = this.Width / 2;
             //btnkoszt.Location = new Point()
-
+            panel2.Width = this.Width / 2;
             panel7.Width = this.Width / 2;
             panel6.Width = this.Width / 4;
-            panel5.Width = this.Width / 4;
             panel5.Location = new Point(this.Width / 4, panel5.Location.Y);
+            panel5.Width = (this.Width / 2) - (this.Width / 4);
 
 
-            panel2.Width = this.Width / 2;
+            panel1.Width = this.Width / 2;
             panel4.Width = this.Width / 2;
             panel8.Width = this.Width / 2;
 
@@ -2200,6 +2243,11 @@ namespace bramy
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelbramy_Paint(object sender, PaintEventArgs e)
         {
 
         }
